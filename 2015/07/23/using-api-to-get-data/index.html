@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.22.1" />
+
+
+<title>Using API to get data - A Hugo website</title>
+<meta property="og:title" content="Using API to get data - A Hugo website">
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="https://github.com/ldavadan">GitHub</a></li>
+    
+    <li><a href="https://www.linkedin.com/in/lo%c3%afc-davadan-886b00145">LinkedIn</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">Using API to get data</h1>
+
+    
+    <span class="article-date">2015/07/23</span>
+    
+
+    <div class="article-content">
+      <p>An API (Application Programming Interface) allows connections to be established between several software programs to exchange data. It needs the authentification of the user with a API key or token. Storing the API key in a script enables to call it in other commands to modify the files of the API. This token will not be available for other users, avoiding in that way an abusive use of this key by others.</p>
+<div id="storage-of-the-api-key" class="section level1">
+<h1>Storage of the API key</h1>
+<div id="creation-of-the-user-on-the-api" class="section level2">
+<h2>Creation of the user on the API</h2>
+<p>Depending on the API, create a new user will request different informations as the name and the password. However, the API will generate a token for every user.</p>
+</div>
+<div id="storage-of-the-token-in-a-environment-variable" class="section level2">
+<h2>Storage of the token in a environment variable</h2>
+<p>Create a text file named “.Renviron” in your Home folder. This file is a R config file.</p>
+<p>Copy this key in a new variable : <code>NAME_TOKEN = your_token</code></p>
+</div>
+</div>
+<div id="get-data-from-the-agromet-api" class="section level1">
+<h1>Get data from the AGROMET API</h1>
+<p>Store in a variable <code>records.df</code> the result of the fonction <code>get_from_agromet_API.fun(user_token.chr, table_name.chr, sensors.chr=NULL, stations_ids.chr, dfrom.chr, dto.chr)</code> où :</p>
+<ul>
+<li><code>user_token.chr</code></li>
+</ul>
+<p>Character vector containing your own token.</p>
+<ul>
+<li><code>table_name.chr</code></li>
+</ul>
+<p>Character vector containing the name of the table you want to query.</p>
+<p>Available table names are : <code>station</code>, <code>cleandata</code>, <code>cleandatafio</code>, <code>rawdata</code>, <code>rawdatafio</code>, <code>get_daily</code>, <code>get_tmy</code>.</p>
+<ul>
+<li><code>sensors.chr</code></li>
+</ul>
+<p>Character vector containing the name of the sensors you want to query.</p>
+<p>Available sensor names are : <code>tsa</code>, <code>hra</code>, <code>plu</code>, <code>ens</code>, <code>vvt</code>, <code>sunset</code>, <code>sunrise</code>. (You can use <code>all</code> to get them all).</p>
+<ul>
+<li><code>stations_ids.chr</code></li>
+</ul>
+<p>Character vector containing the ids of the stations you want to query. (You can Use <code>all</code> to get them all).<br />
+* <code>dfrom.chr</code></p>
+<p>Character vector specifying the date from which you want data.</p>
+<p>Formatted <code>yyyy-mm-dd</code> excepted for <code>get_tmy</code> where you must provide <code>mm-dd</code></p>
+<ul>
+<li><code>dto.chr</code></li>
+</ul>
+<p>Character vector specifying the date to which you want data.</p>
+<p>Formatted <code>yyyy-mm-dd</code> excepted for <code>get_tmy</code> where you must provide <code>mm-dd</code></p>
+<p>You will obtain raw data that you cannot use. You need to transform them to have them in a table. To do this, we will use the fonction <code>prepare_agromet_API_data.fun(records.df)</code> in which we will call our precedent variable. Then, your results will appear in a table.</p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+
+    
+  </body>
+</html>
+
