@@ -24,6 +24,17 @@ We need an outline map to limit the map to Wallonia. We can get the font of Wall
     </item>
     
     <item>
+      <title>Working environment</title>
+      <link>/post/working_environment/</link>
+      <pubDate>Thu, 07 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/working_environment/</guid>
+      <description>In the context of my internship, my work mainly consists in development. However, working in development often imposes to be methodic.
+That’s why, when I have began my internship, I installed my working environment to be more productive.
+Installing Linux First, I have installed Ubuntu GNOME, a distribution of Linux on my laptop. Indeed, this OS is prefered by developers and open-source addicts thanks to the high contribution to improve distributions.</description>
+    </item>
+    
+    <item>
       <title>First experience with the API</title>
       <link>/post/load_data_frasnes_hra/</link>
       <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>

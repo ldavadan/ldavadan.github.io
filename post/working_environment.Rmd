@@ -1,0 +1,42 @@
+---
+title: "Working environment"
+author: "Loïc Davadan"
+date: 2018-06-07
+output: html_document
+---
+
+In the context of my internship, my work mainly consists in development. However, working in development often imposes to be methodic.
+
+That's why, when I have began my internship, I installed my working environment to be more productive.
+
+# Installing Linux
+
+First, I have installed [Ubuntu GNOME](https://ubuntugnome.org/), a distribution of Linux on my laptop. Indeed, this OS is prefered by developers and open-source addicts thanks to the high contribution to improve distributions. Linux distributions are safer than Windows due to that and it is very easy to automatise a lot of commands.
+
+This installation was done thanks to a USB drive with a boot of Ubuntu GNOME.
+
+# Installing applications
+
+Once I had Ubuntu installed on my laptop, I used an [ANSIBLE script](https://www.ansible.com/) to install all the applications I need automatically. Moreover, this script handles the updates of these applications. That is a very useful way to earn some time.
+
+# Generating a SSH key
+
+Accessing to servers has to be secured. That's why every developer should have a [SSH](https://www.ssh.com/) key. This key or token is unique and enable people to access to servers. It is useful to access to Git repositories for example.
+
+# Using GitHub
+
+[GitHub](https://github.com/) is a hosting service for version control. Its utilisation is very common for developers because their codes are online, the access is public and GitHub enable to handle versions of files. It makes easier the collaborative work on a same code and enable to use codes of other users.
+
+For my internship, I need to work with my mentor to code. GitHub is the best solution to that. I created a folder in my laptop to clone all the repositories I need for my work. Then, I have a copy that I can modify and I can send my modifications on GitHub. To clone these repositories, my SSH key was useful.
+
+# Connecting to the API
+
+The AGROMET project for whom I worked has an [API](https://medium.freecodecamp.org/what-is-an-api-in-english-please-b880a3214a82) to store meteorological data from all the stations. An account has been created for my internship. Then, I can get data from the API to test my codes.
+
+# Using Docker
+
+[Docker](https://www.docker.com/what-docker) is a software for containerize platforms. This container approach has many advantages compares to the use of virtual machines : lightweight, quick and modular.
+
+There are two main reasons to use R in conjunction with Docker. First, it allows you to quickly and easily share your work whatever the OS and R configuration of your collaborators. Second, it allows you to work in an isolated environment. This means that you will never pollute your OS and e.g. run in time-consuming re-installation procedures due to broken configuration. In case of OS crash, simply relaunch your Docker R container with a single command and you are ready to work !
+
+
