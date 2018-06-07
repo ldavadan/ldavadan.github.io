@@ -6,17 +6,29 @@
     <description>Recent content in Posts on Personal website of Loïc Davadan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>How to build a template map with data of AGROMET stations</title>
+      <link>/post/creating_map/</link>
+      <pubDate>Thu, 07 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/creating_map/</guid>
+      <description>One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.
+To do that, I used data from the AGROMET API using methods I have already detailed before.
+Get map of Wallonia Source : Raster data acquisition
+We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with getData() function.</description>
+    </item>
+    
+    <item>
       <title>First experience with the API</title>
-      <link>/2018/06/01/first-experience-with-the-api/</link>
+      <link>/post/load_data_frasnes_hra/</link>
       <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>/2018/06/01/first-experience-with-the-api/</guid>
+      <guid>/post/load_data_frasnes_hra/</guid>
       <description>The API has 20 years of records of weather data. When you need some data, you have to use the API to load them.
 For my first exercise, I had to give an usable file with data about the relative humidity throughout the year near to Frasnes-lez-Anvaing.
 Find the nearest station Fisrt, I checked where was Frasnes-lez-Anvaing on the platform to find the nearest station.</description>
@@ -24,19 +36,19 @@ Find the nearest station Fisrt, I checked where was Frasnes-lez-Anvaing on the p
     
     <item>
       <title>Presentation of the internship</title>
-      <link>/2018/05/30/presentation-of-the-internship/</link>
+      <link>/post/internship_presentation/</link>
       <pubDate>Wed, 30 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/2018/05/30/presentation-of-the-internship/</guid>
+      <guid>/post/internship_presentation/</guid>
       <description>In the course of my studies in Bordeaux Sciences Agro, I realised a 3-month internship. This internship took place in the Walloon agricultural research centre (CRA-W)) from May 22nd to August 20th 2018. I made a contribution to the AGROMET project in Farming Systems, Territory and Information Technologies Unit. The aim of the Agromet project is to provide a near real-time hourly gridded datasets of weather parameters at the resolution of 1 km² for the whole region of Wallonia characterized by a quality indicator.</description>
     </item>
     
     <item>
       <title>Resources about Spatialization, R and others</title>
-      <link>/2018/05/30/resources-about-spatialization-r-and-others/</link>
+      <link>/post/resources_documents/</link>
       <pubDate>Wed, 30 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/2018/05/30/resources-about-spatialization-r-and-others/</guid>
+      <guid>/post/resources_documents/</guid>
       <description>This post will sum up a few sources of information useful if you are interested in spatialization or development.
 Spatialization Definition : Spatialization or spatial interpolation creates a continuous surface from values measured at discrete locations to predict values at any location in the interest zone with the best accuracy.
 The book Using ArcGIS Geostatistical Analyst will give you an efficient overview about spatialization.
@@ -45,10 +57,10 @@ The book Geocomputation with R will give you a lot of informations about what yo
     
     <item>
       <title>Using AGROMET API to get weather data</title>
-      <link>/2018/05/30/using-agromet-api-to-get-weather-data/</link>
+      <link>/post/store_api-token/</link>
       <pubDate>Wed, 30 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/2018/05/30/using-agromet-api-to-get-weather-data/</guid>
+      <guid>/post/store_api-token/</guid>
       <description>An API (Application Programming Interface) allows connections to be established between several software programs to exchange data. It needs the authentification of the user with a API key or token. Storing the API key in a script enables to call it in other commands to modify the files of the API. This token will not be available for other users, avoiding in that way an abusive use of this key by others.</description>
     </item>
     

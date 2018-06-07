@@ -10,7 +10,7 @@
     
 
     
-    <title>Personal website of Loïc Davadan (SEO Version)</title>
+    <title>How to build a template map with data of AGROMET stations</title>
 
     
     
@@ -20,14 +20,22 @@
 
   
   <meta name="author" content="Loïc Davadan" />
-  <meta name="description" content="This website was developed as a logbook to keep tracks fof my work" />
+  <meta name="description" content="One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.
+To do that, I used data from the AGROMET API using methods I have already detailed before.
+Get map of Wallonia Source : Raster data acquisition
+We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with getData() function." />
 
   
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@gohugoio" />
-  <meta name="twitter:title" content="Personal website of Loïc Davadan (SEO Version)" />
-  <meta name="twitter:description" content="This website was developed as a logbook to keep tracks fof my work" />
-  <meta name="twitter:image" content="/img/avatar.jpg" />
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="How to build a template map with data of AGROMET stations" />
+    <meta name="twitter:description" content="One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.
+To do that, I used data from the AGROMET API using methods I have already detailed before.
+Get map of Wallonia Source : Raster data acquisition
+We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with getData() function." />
+    <meta name="twitter:image" content="/img/avatar.jpg" />
+  
 
 
 
@@ -35,7 +43,7 @@
 <meta name="generator" content="Hugo 0.33">
 
 
-<link rel="canonical" href="/">
+<link rel="canonical" href="/post/creating_map/">
 <link rel="alternative" href="/index.xml" title="Personal website of Loïc Davadan" type="application/atom+xml">
 
 
@@ -87,7 +95,7 @@
     sizes="(max-width: 800px) 36px, 128px">
   </amp-img>
   
-    <h1 class="title"><a href="/" title="Personal website of Loïc Davadan">Personal website of Loïc Davadan</a></h1>
+    <h2 class="title"><a href="/" title="Personal website of Loïc Davadan">Personal website of Loïc Davadan</a></h2>
   
   <p class="subtitle">Personal website for my internship</p>
   <button class="menu-toggle" type="button" on="tap:sidebar.open">
@@ -144,110 +152,105 @@
 
 </header>
 
-  <section class="main entry-list">
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">How to build a template map with data of AGROMET stations</h1>
+      <p class="entry-meta"><span class="entry-time">Jun 7, 2018</span> 3 min read</p>
+    </header>
     
-    
-      
-        <article class="entry-single">
+
+    <article class="post-content"><p>One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.</p>
+<p>To do that, I used data from the <a href="https://ldavadan.github.io/2018/05/30/using-agromet-api-to-get-weather-data/">AGROMET API</a> using methods I have already detailed before.</p>
+<div id="get-map-of-wallonia" class="section level1">
+<h1>Get map of Wallonia</h1>
+<p>Source : <a href="https://www.gis-blog.com/r-raster-data-acquisition/">Raster data acquisition</a></p>
+<p>We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with <code>getData()</code> function.</p>
+</div>
+<div id="create-a-template-to-view-spatialized-data" class="section level1">
+<h1>Create a template to view spatialized data</h1>
+<div id="prepare-a-data-set-to-spatialize" class="section level2">
+<h2>Prepare a data set to spatialize</h2>
+<p>We have made a sample data set with one hour of record from all the stations and we spatialized temperature from a model which predict temperature on altitude, orientation and slope. This model is false but is sufficient to realize a first test for the template map.</p>
+</div>
+<div id="build-the-map" class="section level2">
+<h2>Build the map</h2>
+<div id="a-few-things-about-updates-and-installation-of-packages" class="section level3">
+<h3>A few things about updates and installation of packages</h3>
+<p>For the creation of the template, I used an R package : <code>tmap</code>. All the informations about this package are available to this <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html#static-plot-and-interactive-view">link</a>.</p>
+<p>However, the installation of this package needs the installation of some dependencies on Linux to run correctly. The <a href="https://github.com/mtennekes/tmap">GitHub repository of tmap</a> has a script for the installation of all the dependencies.</p>
+<p>I remind that I work on a virtual machine. This one had to be updated because the dependencies were not installed. The virtual machine runs with Docker, so it is the container Docker which was updated by rebuilding the image.</p>
+<p><em>NB</em> : Working in a virtual machine enable to do these actions without any risk. If you do not use a virtual machine, you have the risk to break your environment and spend a lot of time to rebuild it. The only inconvenient of the virtual machine is that you need to do the installation of the package every time you reload the machine if this package is not installed in the container.</p>
+<p>Once the installation of tmap is done, a lot of options to create maps are available.</p>
+<pre class="r"><code>create_map_tsa &lt;- function(
+  spatial_data.sp = NULL,
+  method.chr = NULL,
+  type.chr = NULL){
   
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="/post/creating_map/" title="How to build a template map with data of AGROMET stations" class="entry-link">How to build a template map with data of AGROMET stations</a></h3>
-  </header>
-
-  <p class="entry-summary">One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.
-To do that, I used data from the AGROMET API using methods I have already detailed before.
-Get map of Wallonia Source : Raster data acquisition
-We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with getData() function.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 7, 2018</span> 3 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fcreating_map%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=How%20to%20build%20a%20template%20map%20with%20data%20of%20AGROMET%20stations&amp;url=%2fpost%2fcreating_map%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=How%20to%20build%20a%20template%20map%20with%20data%20of%20AGROMET%20stations&amp;url=%2fpost%2fcreating_map%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
   
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="/post/load_data_frasnes_hra/" title="First experience with the API" class="entry-link">First experience with the API</a></h3>
-  </header>
+  library(tmap)
 
-  <p class="entry-summary">The API has 20 years of records of weather data. When you need some data, you have to use the API to load them.
-For my first exercise, I had to give an usable file with data about the relative humidity throughout the year near to Frasnes-lez-Anvaing.
-Find the nearest station Fisrt, I checked where was Frasnes-lez-Anvaing on the platform to find the nearest station.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 1, 2018</span> 13 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fload_data_frasnes_hra%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=First%20experience%20with%20the%20API&amp;url=%2fpost%2fload_data_frasnes_hra%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=First%20experience%20with%20the%20API&amp;url=%2fpost%2fload_data_frasnes_hra%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
+  load(&quot;~/Documents/code/test/api_test/wallonie.3812.sp&quot;)
+  file &lt;- &quot;../../data/craw.png&quot;
   
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="/post/store_api-token/" title="Using AGROMET API to get weather data" class="entry-link">Using AGROMET API to get weather data</a></h3>
-  </header>
-
-  <p class="entry-summary">An API (Application Programming Interface) allows connections to be established between several software programs to exchange data. It needs the authentification of the user with a API key or token. Storing the API key in a script enables to call it in other commands to modify the files of the API. This token will not be available for other users, avoiding in that way an abusive use of this key by others.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">May 30, 2018</span> 2 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fstore_api-token%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Using%20AGROMET%20API%20to%20get%20weather%20data&amp;url=%2fpost%2fstore_api-token%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Using%20AGROMET%20API%20to%20get%20weather%20data&amp;url=%2fpost%2fstore_api-token%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
+  static &lt;- tm_shape(spatial_data.sp, projection=&quot;3812&quot;) +            # Projection : Belgian Lambert
+    tm_raster(&quot;response&quot;,                                             # spatialize temperature
+              palette = &quot;-RdYlBu&quot;,
+              title = &quot;Temperature (°C)&quot;,
+              auto.palette.mapping=FALSE,
+              breaks = c(quantile(spatial_data.sp$response, 0, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.1, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.2, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.3, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.4, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.5, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.6, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.7, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.8, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.9, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 1, na.rm = TRUE))) +
+    tm_compass(position = c(0.9,0.15), color.light = &quot;grey20&quot;) +      # north
+    tm_scale_bar(breaks = NULL, width = NA, size = 0.8, text.color = &quot;grey20&quot;,  # scale bar 
+                 color.dark = &quot;grey20&quot;, color.light = &quot;white&quot;, lwd = 1, position = c(0.22,0.01),
+                 just = NA) +
+    tm_logo(file, height = 2, halign = &quot;center&quot;, margin = 0.2,        # CRA-W logo
+            position = c(-0.01,-0.04), just = NA) +
+    tm_shape(wallonie.3812.sp) +                                      # outline of Wallonia
+    tm_borders(&quot;grey20&quot;, lwd = 1.5) +
+    tm_layout(legend.position = c(0.01,0.14),                         # parameters
+              legend.height = 0.55,
+              legend.text.size = 0.7,
+              legend.bg.color = &quot;white&quot;,
+              legend.title.size = 0.9,
+              inner.margins = c(0.03, 0.03, 0.07, 0.03),
+              frame.lwd = 0,
+              bg.color = &quot;grey85&quot;,
+              main.title = paste(&quot;Interpolated temperature with &quot;, method.chr),
+              title = &quot;Resolution : 1 km²&quot;, 
+              title.size = 0.6, 
+              title.position = c(0.01, 0.96)) +
+    tm_credits(&quot;© CRA-W&quot;, position = c(.87, 0))
   
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="/post/resources_documents/" title="Resources about Spatialization, R and others" class="entry-link">Resources about Spatialization, R and others</a></h3>
-  </header>
-
-  <p class="entry-summary">This post will sum up a few sources of information useful if you are interested in spatialization or development.
-Spatialization Definition : Spatialization or spatial interpolation creates a continuous surface from values measured at discrete locations to predict values at any location in the interest zone with the best accuracy.
-The book Using ArcGIS Geostatistical Analyst will give you an efficient overview about spatialization.
-The book Geocomputation with R will give you a lot of informations about what you can do with geographic data.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">May 30, 2018</span> 2 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fresources_documents%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Resources%20about%20Spatialization%2c%20R%20and%20others&amp;url=%2fpost%2fresources_documents%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Resources%20about%20Spatialization%2c%20R%20and%20others&amp;url=%2fpost%2fresources_documents%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
+  if(type.chr == &quot;static&quot;) {
+    return(static)
+  }else{
+    interactive &lt;- tmap_leaflet(static)
+    return(interactive)
+  }
+}
+create_map_tsa(spatial_data.sp = gridded.3812.sp, type.chr = &quot;static&quot;, method.chr = &quot;&lt;na&gt;&quot;)</code></pre>
+<p><img src="/post/creating_map_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+</div>
+</div>
 </article>
-
+    <footer class="post-footer">
       
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="/post/internship_presentation/" title="Presentation of the internship" class="entry-link">Presentation of the internship</a></h3>
-  </header>
-
-  <p class="entry-summary">In the course of my studies in Bordeaux Sciences Agro, I realised a 3-month internship. This internship took place in the Walloon agricultural research centre (CRA-W)) from May 22nd to August 20th 2018. I made a contribution to the AGROMET project in Farming Systems, Territory and Information Technologies Unit. The aim of the Agromet project is to provide a near real-time hourly gridded datasets of weather parameters at the resolution of 1 km² for the whole region of Wallonia characterized by a quality indicator.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">May 30, 2018</span> 3 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2finternship_presentation%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Presentation%20of%20the%20internship&amp;url=%2fpost%2finternship_presentation%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Presentation%20of%20the%20internship&amp;url=%2fpost%2finternship_presentation%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-    
-    
+      <div class="sharing">
+        <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fcreating_map%2f" title="Share on Facebook"></a>
+        <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=How%20to%20build%20a%20template%20map%20with%20data%20of%20AGROMET%20stations&amp;url=%2fpost%2fcreating_map%2f" title="Share on Twitter"></a>
+        <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=How%20to%20build%20a%20template%20map%20with%20data%20of%20AGROMET%20stations&amp;url=%2fpost%2fcreating_map%2f" title="Share on Google+"></a>
+      </div>
+    </footer>
   </section>
   <footer class="footer">
   <p>Copyright © 2018 Personal website of Loïc Davadan</p>

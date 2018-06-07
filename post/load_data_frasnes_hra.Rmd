@@ -1,0 +1,112 @@
+---
+title: "First experience with the API"
+author: "Loïc Davadan"
+date: 2018-06-01
+output: html_document
+---
+
+```{r echo = FALSE, message = FALSE}
+#+ ---------------------------------
+#' ## Script preparation
+#' 
+#+ preparation, echo=TRUE, warning=FALSE, message=FALSE, error=FALSE, results='asis'
+
+# Avoid interference with old variables by cleaning the Global Environment
+rm(list=ls(all=TRUE))
+
+# Automagically set the wd and the root of all projects 
+if (!require("here")) install.packages("here")
+library(here)
+wd.chr <- here::here()
+
+# Dynamic Sourcing of all the required functions
+source(paste0("../../../R-utilities/R-utilities.R"))
+source_files_recursively.fun("./R")
+source_files_recursively.fun("../../../agrometeor-public/R/")
+```
+
+The API has 20 years of records of weather data. When you need some data, you have to use the API to load them.
+
+For my first exercise, I had to give an usable file with data about the relative humidity throughout the year near to Frasnes-lez-Anvaing.
+
+# Find the nearest station
+
+Fisrt, I checked where was Frasnes-lez-Anvaing on the [platform](app.pameseb.be) to find the nearest station. This station was in Esplechin.
+
+Then, I needed to find the ID of this station to load data from this station. I loaded the list of all the stations and searched for the Esplechin Station's ID.
+
+```{r eval = FALSE}
+# Loading data from API : list of all the stations
+stations.df <- prepare_agromet_API_data.fun(
+  get_from_agromet_API.fun(
+    user_token.chr = Sys.getenv("AGROMET_TOKEN"), # authentification to API
+    table_name.chr = "station",
+    sensors.chr=NULL,
+    stations_ids.chr = "all",                     # load data of all the stations
+    api_v.chr="v1",
+    test.bool=FALSE
+  )
+)
+```
+
+# Prepare data
+
+## Load the recordset
+
+Then, I loaded the data from this station from 2010 to 2015.
+```{r eval = FALSE}
+# Load the recordset from the nearest station to Frasnes-lez-Anvaing : Esplechin 
+records.df <- prepare_agromet_API_data.fun(
+  get_from_agromet_API.fun(
+    user_token.chr = Sys.getenv("AGROMET_TOKEN"),
+    table_name.chr = "cleandata",
+    sensors.chr= "hra",                # relative humidity measured
+    stations_ids.chr = "38",           # ID of station in Esplechin
+    api_v.chr="v2",
+    test.bool=FALSE,
+    dfrom="2010-01-01",
+    dto="2015-01-01"
+  )
+)
+```
+
+```{r echo = FALSE}
+# load .Rdata
+load("../../data/environment_api.RData")
+```
+Once data had been loaded, I had records for every hour from 2010 to 2015 : 43 825 records !
+
+## Aggregate the recordset
+
+However, the file does not need a hourly, daily records are more convenient. So, I had to aggregate data. Moreover, the objective is to compare relative humidity throughout the year, every day of the year had to be grouped. For example, the January 01st relative humidity measure will be the mean of the measures from each year.
+
+```{r message = FALSE}
+# Calculate the mean hra for each day
+library(tidyverse)
+records.day.df <- records.df %>%
+  mutate(day = as.POSIXlt(as.Date(mtime))$yday) %>%
+  group_by(sid, poste, longitude, latitude, altitude, network_name, day) %>%
+  summarise(hra_mean_day = mean(hra))
+head(records.day.df)
+```
+
+## Observe the results
+
+Then, we can see the evolution of the relative humidity throughout the year.
+
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+library(plotly)
+plot <- ggplot(data=records.day.df, aes(x=day, y=hra_mean_day)) + 
+  geom_point(size = 0.1) + 
+  geom_smooth()
+plot <- ggplotly(plot)
+plot
+```
+
+## Export the result
+
+Finally, we can export the result as [CSV file](/post/load_data_frasnes_hra_files/records_Esplechin_2010-2015.csv). In that way, people using this file will be able to to other calculs on it.
+```{r eval = FALSE}
+write.csv(records.day.df, file = "../../static/post/load_data_frasnes_hra_files/records_Esplechin_2010-2015.csv")
+```
+

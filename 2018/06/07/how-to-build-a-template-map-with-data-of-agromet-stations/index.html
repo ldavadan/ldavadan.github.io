@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.33" />
+
+
+<title>How to build a template map with data of AGROMET stations - Personal website of Loïc Davadan</title>
+<meta property="og:title" content="How to build a template map with data of AGROMET stations - Personal website of Loïc Davadan">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="https://github.com/ldavadan">GitHub</a></li>
+    
+    <li><a href="https://www.linkedin.com/in/lo%c3%afc-davadan-886b00145">LinkedIn</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">How to build a template map with data of AGROMET stations</h1>
+
+    
+    <span class="article-date">2018/06/07</span>
+    
+
+    <div class="article-content">
+      <p>One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.</p>
+<p>To do that, I used data from the <a href="https://ldavadan.github.io/2018/05/30/using-agromet-api-to-get-weather-data/">AGROMET API</a> using methods I have already detailed before.</p>
+<div id="get-map-of-wallonia" class="section level1">
+<h1>Get map of Wallonia</h1>
+<p>Source : <a href="https://www.gis-blog.com/r-raster-data-acquisition/">Raster data acquisition</a></p>
+<p>We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with <code>getData()</code> function.</p>
+</div>
+<div id="create-a-template-to-view-spatialized-data" class="section level1">
+<h1>Create a template to view spatialized data</h1>
+<div id="prepare-a-data-set-to-spatialize" class="section level2">
+<h2>Prepare a data set to spatialize</h2>
+<p>We have made a sample data set with one hour of record from all the stations and we spatialized temperature from a model which predict temperature on altitude, orientation and slope. This model is false but is sufficient to realize a first test for the template map.</p>
+</div>
+<div id="build-the-map" class="section level2">
+<h2>Build the map</h2>
+<div id="a-few-things-about-updates-and-installation-of-packages" class="section level3">
+<h3>A few things about updates and installation of packages</h3>
+<p>For the creation of the template, I used an R package : <code>tmap</code>. All the informations about this package are available to this <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html#static-plot-and-interactive-view">link</a>.</p>
+<p>However, the installation of this package needs the installation of some dependencies on Linux to run correctly. The <a href="https://github.com/mtennekes/tmap">GitHub repository of tmap</a> has a script for the installation of all the dependencies.</p>
+<p>I remind that I work on a virtual machine. This one had to be updated because the dependencies were not installed. The virtual machine runs with Docker, so it is the container Docker which was updated by rebuilding the image.</p>
+<p><em>NB</em> : Working in a virtual machine enable to do these actions without any risk. If you do not use a virtual machine, you have the risk to break your environment and spend a lot of time to rebuild it. The only inconvenient of the virtual machine is that you need to do the installation of the package every time you reload the machine if this package is not installed in the container.</p>
+<p>Once the installation of tmap is done, a lot of options to create maps are available.</p>
+<pre class="r"><code>create_map_tsa &lt;- function(
+  spatial_data.sp = NULL,
+  method.chr = NULL,
+  type.chr = NULL){
+  
+  
+  library(tmap)
+
+  load(&quot;~/Documents/code/test/api_test/wallonie.3812.sp&quot;)
+  file &lt;- &quot;../../data/craw.png&quot;
+  
+  static &lt;- tm_shape(spatial_data.sp, projection=&quot;3812&quot;) +            # Projection : Belgian Lambert
+    tm_raster(&quot;response&quot;,                                             # spatialize temperature
+              palette = &quot;-RdYlBu&quot;,
+              title = &quot;Temperature (°C)&quot;,
+              auto.palette.mapping=FALSE,
+              breaks = c(quantile(spatial_data.sp$response, 0, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.1, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.2, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.3, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.4, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.5, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.6, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.7, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.8, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 0.9, na.rm = TRUE),
+                         quantile(spatial_data.sp$response, 1, na.rm = TRUE))) +
+    tm_compass(position = c(0.9,0.15), color.light = &quot;grey20&quot;) +      # north
+    tm_scale_bar(breaks = NULL, width = NA, size = 0.8, text.color = &quot;grey20&quot;,  # scale bar 
+                 color.dark = &quot;grey20&quot;, color.light = &quot;white&quot;, lwd = 1, position = c(0.22,0.01),
+                 just = NA) +
+    tm_logo(file, height = 2, halign = &quot;center&quot;, margin = 0.2,        # CRA-W logo
+            position = c(-0.01,-0.04), just = NA) +
+    tm_shape(wallonie.3812.sp) +                                      # outline of Wallonia
+    tm_borders(&quot;grey20&quot;, lwd = 1.5) +
+    tm_layout(legend.position = c(0.01,0.14),                         # parameters
+              legend.height = 0.55,
+              legend.text.size = 0.7,
+              legend.bg.color = &quot;white&quot;,
+              legend.title.size = 0.9,
+              inner.margins = c(0.03, 0.03, 0.07, 0.03),
+              frame.lwd = 0,
+              bg.color = &quot;grey85&quot;,
+              main.title = paste(&quot;Interpolated temperature with &quot;, method.chr),
+              title = &quot;Resolution : 1 km²&quot;, 
+              title.size = 0.6, 
+              title.position = c(0.01, 0.96)) +
+    tm_credits(&quot;© CRA-W&quot;, position = c(.87, 0))
+  
+  if(type.chr == &quot;static&quot;) {
+    return(static)
+  }else{
+    interactive &lt;- tmap_leaflet(static)
+    return(interactive)
+  }
+}
+create_map_tsa(spatial_data.sp = gridded.3812.sp, type.chr = &quot;static&quot;, method.chr = &quot;&lt;na&gt;&quot;)</code></pre>
+<p><img src="../../../../post/creating_map_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="../../../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

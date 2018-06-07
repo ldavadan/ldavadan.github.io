@@ -3,22 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/2018/06/01/first-experience-with-the-api/</loc>
+    <loc>/post/creating_map/</loc>
+    <lastmod>2018-06-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/load_data_frasnes_hra/</loc>
     <lastmod>2018-06-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/2018/05/30/presentation-of-the-internship/</loc>
+    <loc>/post/internship_presentation/</loc>
     <lastmod>2018-05-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/2018/05/30/resources-about-spatialization-r-and-others/</loc>
+    <loc>/post/resources_documents/</loc>
     <lastmod>2018-05-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/2018/05/30/using-agromet-api-to-get-weather-data/</loc>
+    <loc>/post/store_api-token/</loc>
     <lastmod>2018-05-30T00:00:00+00:00</lastmod>
   </url>
   
@@ -34,13 +39,13 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-06-01T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-06-01T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

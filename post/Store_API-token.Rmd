@@ -1,0 +1,65 @@
+---
+title: "Using AGROMET API to get weather data"
+author: "Loïc Davadan"
+date: 2018-05-30
+output: html_document
+---
+
+An API (Application Programming Interface) allows connections to be established between several software programs to exchange data. It needs the authentification of the user with a API key or token.
+Storing the API key in a script enables to call it in other commands to modify the files of the API. This token will not be available for other users, avoiding in that way an abusive use of this key by others.
+
+# Storage of the API key
+
+## Creation of the user on the API
+
+Create a new user on the API will request different informations as the name and the password. Then, the API will generate a token for every user.
+
+## Storage of the token in a environment variable
+
+Create a text file named ".Renviron" in your Home folder. This file is a R config file.
+
+Copy this key in a new variable :
+`AGROMET_TOKEN = your_token`
+
+# Get data from the AGROMET API
+
+Store in a variable `records.df` the result of the fonction `get_from_agromet_API.fun(user_token.chr, table_name.chr, sensors.chr=NULL, stations_ids.chr, dfrom.chr, dto.chr)` where :
+
+* `user_token.chr`  
+
+Character vector containing your own token.  
+
+* `table_name.chr`  
+
+Character vector containing the name of the table you want to query.  
+
+Available table names are : `station`, `cleandata`, `cleandatafio`, `rawdata`, `rawdatafio`, `get_daily`, `get_tmy`.
+
+* `sensors.chr`  
+
+Character vector containing the name of the sensors you want to query.  
+
+Available sensor names are : `tsa`, `hra`, `plu`, `ens`, `vvt`, `sunset`, `sunrise`. (You can use `all` to get them all).  
+
+* `stations_ids.chr`  
+
+Character vector containing the ids of the stations you want to query. (You can Use `all` to get them all).  
+* `dfrom.chr`  
+
+Character vector specifying the date from which you want data.  
+
+Formatted `yyyy-mm-dd` excepted for `get_tmy` where you must provide `mm-dd`
+
+* `dto.chr`  
+
+Character vector specifying the date to which you want data.  
+
+Formatted `yyyy-mm-dd` excepted for `get_tmy` where you must provide `mm-dd`
+
+You will obtain raw data that you cannot use. You need to transform them to have them in a table. To do this, we will use the fonction `prepare_agromet_API_data.fun(records.df)` in which we will call our precedent variable. Then, your results will appear in a table.
+
+
+
+
+
+

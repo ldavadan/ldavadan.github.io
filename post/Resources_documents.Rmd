@@ -1,0 +1,52 @@
+---
+title: "Resources about Spatialization, R and others"
+author: "Loïc Davadan"
+date: 2018-05-30
+output: html_document
+---
+
+This post will sum up a few sources of information useful if you are interested in spatialization or development.
+
+# Spatialization
+
+**Definition** : Spatialization or spatial interpolation creates a continuous surface from values measured at discrete locations to predict values at any location in the interest zone with the best accuracy.
+
+The book [Using ArcGIS Geostatistical Analyst](http://dusk2.geo.orst.edu/gis/geostat_analyst.pdf) will give you an efficient overview about spatialization.
+
+The book [Geocomputation with R](http://geocompr.robinlovelace.net/) will give you a lot of informations about what you can do with geographic data.
+
+
+# Machine learning
+
+A package from R : [mlr with R](https://mlr-org.github.io/mlr/)
+
+A [blog](https://machinelearningmastery.com/) very complete about machine learning
+
+# R tools
+
+Use [Rmarkdown](https://rmarkdown.rstudio.com/) to write your reports, your presentations or your HTML pages.
+Use [Blogdown](https://bookdown.org/yihui/blogdown/) to create our own blog.
+Use [Leaflet](https://rstudio.github.io/leaflet/) to generate maps.
+
+
+# AGROMET project
+
+If you are interested in the project led by CRA-W about providing hourly 1km² gridded datasets of weather parameters with the best accuracy, these links can give you more information about the context and the realisation of the project.
+
+Presentation of the [AGROMET](http://www.cra.wallonie.be/fr/agromet) project.
+
+Here is a presentation that explains the [methodological approach to assess the spatialization techniques](https://pokyah.github.io/agrometeor-methodo-spatial/Agromet_Spatialization_a_methodological_approach_to_asses_the_best_spatialization_technique.html#/)
+
+And here a presentation of the [comparison of temperature of two stations from PAMESEB & RMI](https://pokyah.github.io/AWS-Humain-comparison/reporting/Humain-presentation-revealjs.html#/)
+
+All the results will be available on the [platform](https://app.pameseb.be/fr/) developed for the project.
+
+The following references are publications which inspired the AGROMET project :
+
+- [Use of geographic information systems in warning services for late blight](https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1365-2338.2007.01134.x) (Zeuner, 2007)
+
+- [Decision Support Systems  in Agriculture](https://www.intechopen.com/books/efficient-decision-support-systems-practice-and-challenges-from-current-to-future/decision-support-systems-in-agriculture-administration-of-meteorological-data-use-of-geographic-info) (Racca, 2011)
+
+- [Spatial interpolation of ambient ozone concentrations in Belgium](https://www.ncbi.nlm.nih.gov/pubmed/17075619) (Hooyberghs, 2006)
+
+- [Spatial interpolation of air pollution measurements using CORINE land cover data](https://www.sciencedirect.com/science/article/pii/S1352231008001829) (Stijn, 2008)
