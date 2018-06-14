@@ -115,5 +115,5 @@ class.buff.stations.sf <- st_intersection(corine.wal.simple.sf, stations.buff.sf
 
 Then, we calculate the prevalence of every land cover around each station.
 
-This work gave me an exercise to fix a problem in my code, I refer you to [this post](https://ldavadan.github.io/post/)
+This work gave me an exercise to fix a problem in my code, I refer you to [this post](https://ldavadan.github.io/post/solve_pb_clc/).
 
