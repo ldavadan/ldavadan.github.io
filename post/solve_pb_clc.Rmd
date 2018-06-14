@@ -4,6 +4,9 @@ author: "Loïc Davadan"
 date: 2018-06-14
 output: html_document
 ---
+```{r include=FALSE}
+load("~/Documents/code/agromet-tests/env_clc.RData")
+```
 
 In the context of the AGROMET project, we searched to include data from CORINE land cover in our models. I refer you to my post [How to get CORINE land cover data from Wallonia](https://ldavadan.github.io/post/get_corinelc_wallonia/) where I explained how we got data and how we reclass land covers in groups.
 
@@ -24,6 +27,11 @@ Then, I made some manipulations to extract the land covers which are around the 
 ## Searching which polygon is problematic
 
 I checked every step of my code to find where appears the error. I found a polygon which appears 4 times whereas all other polygons appear only once. I observed it with `mapview` to check if this polygon was the one which appears on the 4 different stations. And this polygon was the one which is problematic.
+
+```{r echo=FALSE}
+library(mapview)
+mapview(guilty, col.regions = "orange") + stations.buff.sf
+```
 
 Then, I looked for the step where a computation was done on this polygon. Once it was found, I understood it was because of the ID of the polygon which was appearing 4 times and then, a computation was done on it. For that reason, I made a new ID that was named customID to attribute 4 ID to this polygon, one for each appearance. Then, the computation was correctly done and the percentage was correct.
 
