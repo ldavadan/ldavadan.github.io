@@ -6,10 +6,32 @@
     <description>Recent content on Personal website of Loïc Davadan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Solve a problem in computing the area of each polygon inside a buffer</title>
+      <link>/post/solve_pb_clc/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/solve_pb_clc/</guid>
+      <description>In the context of the AGROMET project, we searched to include data from CORINE land cover in our models. I refer you to my post How to get CORINE land cover data from Wallonia where I explained how we got data and how we reclass land covers in groups.
+During my work, I wanted to calculate the part of each land cover around every station and I am arrived at a problem.</description>
+    </item>
+    
+    <item>
+      <title>How to get CORINE land cover data from Wallonia</title>
+      <link>/post/get_corinelc_wallonia/</link>
+      <pubDate>Fri, 08 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/get_corinelc_wallonia/</guid>
+      <description>The objective of the AGROMET project is to provide hourly 1km² gridded datasets of weather parameters with the best accuracy (i.e. spatialize hourly records from the stations on the whole area of Wallonia). Weather parameters will be predicted with explanatory variables. These explanatory variables are :
+ Digital elevation model and its derivatives like aspect and slope
+ Solar irradiance
+  But other explanatory variables are discussed to be included in models.</description>
+    </item>
     
     <item>
       <title>How to build a template map with data of AGROMET stations</title>

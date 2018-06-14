@@ -21,17 +21,17 @@ wd.chr <- here::here()
 
 # Dynamic Sourcing of all the required functions
 source(paste0("../../../R-utilities/R-utilities.R"))
-source_files_recursively.fun("./R")
-source_files_recursively.fun("../../../agrometeor-public/R/")
+#source_files_recursively.fun("./R")
+source_files_recursively.fun("../agrometeor-public/R/")
 
 library(raster)
 library(tmap)
-load("~/Documents/code/test/api_test/gridded.3812.sp")
+load("~/Documents/code/agromet-tests/data-raw/gridded.3812.sp")
 ```
 
 One of the objectives of the AGROMET project is to make maps to view spatialized data. That's why I tried to create a template map to view the different tests of spatialization.
 
-To do that, I used data from the [AGROMET API](https://ldavadan.github.io/2018/05/30/using-agromet-api-to-get-weather-data/) using methods I have already detailed before.
+To do that, I used data from the [AGROMET API](https://ldavadan.github.io/post/using-agromet-api-to-get-weather-data/) using methods I have already detailed before.
 
 
 
@@ -73,7 +73,9 @@ create_map_tsa <- function(
   
   library(tmap)
 
-  load("~/Documents/code/test/api_test/wallonie.3812.sp")
+  be.sp <- getData('GADM', country = 'BE', level = 1, download = TRUE)
+  wallonie.sp <- be.sp[be.sp$NAME_1 == "Wallonie",]
+  wallonie.3812.sp <- spTransform(wallonie.sp, CRS(projargs = dplyr::filter(rgdal::make_EPSG(), code == "3812")$prj4))
   file <- "../../data/craw.png"
   
   static <- tm_shape(spatial_data.sp, projection="3812") +            # Projection : Belgian Lambert

@@ -10,7 +10,7 @@
     
 
     
-    <title>How to build a template map with data of AGROMET stations</title>
+    <title>How to get CORINE land cover data from Wallonia</title>
 
     
     
@@ -20,20 +20,20 @@
 
   
   <meta name="author" content="Loïc Davadan" />
-  <meta name="description" content="One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.
-To do that, I used data from the AGROMET API using methods I have already detailed before.
-Get map of Wallonia Source : Raster data acquisition
-We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with getData() function." />
+  <meta name="description" content="The objective of the AGROMET project is to provide hourly 1km² gridded datasets of weather parameters with the best accuracy (i.e. spatialize hourly records from the stations on the whole area of Wallonia). Weather parameters will be predicted with explanatory variables. These explanatory variables are :
+ Digital elevation model and its derivatives like aspect and slope
+ Solar irradiance
+  But other explanatory variables are discussed to be included in models." />
 
   
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@gohugoio" />
-    <meta name="twitter:title" content="How to build a template map with data of AGROMET stations" />
-    <meta name="twitter:description" content="One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.
-To do that, I used data from the AGROMET API using methods I have already detailed before.
-Get map of Wallonia Source : Raster data acquisition
-We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with getData() function." />
+    <meta name="twitter:title" content="How to get CORINE land cover data from Wallonia" />
+    <meta name="twitter:description" content="The objective of the AGROMET project is to provide hourly 1km² gridded datasets of weather parameters with the best accuracy (i.e. spatialize hourly records from the stations on the whole area of Wallonia). Weather parameters will be predicted with explanatory variables. These explanatory variables are :
+ Digital elevation model and its derivatives like aspect and slope
+ Solar irradiance
+  But other explanatory variables are discussed to be included in models." />
     <meta name="twitter:image" content="/img/avatar.jpg" />
   
 
@@ -43,7 +43,7 @@ We need an outline map to limit the map to Wallonia. We can get the font of Wall
 <meta name="generator" content="Hugo 0.33">
 
 
-<link rel="canonical" href="/post/creating_map/">
+<link rel="canonical" href="/post/get_corinelc_wallonia/">
 <link rel="alternative" href="/index.xml" title="Personal website of Loïc Davadan" type="application/atom+xml">
 
 
@@ -154,103 +154,97 @@ We need an outline map to limit the map to Wallonia. We can get the font of Wall
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">How to build a template map with data of AGROMET stations</h1>
-      <p class="entry-meta"><span class="entry-time">Jun 7, 2018</span> 3 min read</p>
+      <h1 class="post-title">How to get CORINE land cover data from Wallonia</h1>
+      <p class="entry-meta"><span class="entry-time">Jun 8, 2018</span> 4 min read</p>
     </header>
     
 
-    <article class="post-content"><p>One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.</p>
-<p>To do that, I used data from the <a href="https://ldavadan.github.io/post/using-agromet-api-to-get-weather-data/">AGROMET API</a> using methods I have already detailed before.</p>
-<div id="get-map-of-wallonia" class="section level1">
-<h1>Get map of Wallonia</h1>
-<p>Source : <a href="https://www.gis-blog.com/r-raster-data-acquisition/">Raster data acquisition</a></p>
-<p>We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with <code>getData()</code> function.</p>
+    <article class="post-content"><p>The objective of the AGROMET project is to provide hourly 1km² gridded datasets of weather parameters with the best accuracy (i.e. spatialize hourly records from the stations on the whole area of Wallonia). Weather parameters will be predicted with explanatory variables. These explanatory variables are :</p>
+<ul>
+<li><p>Digital elevation model and its derivatives like aspect and slope</p></li>
+<li><p>Solar irradiance</p></li>
+</ul>
+<p>But other explanatory variables are discussed to be included in models. For example, CORINE land cover could be a great explanatory variables. Indeed, urban areas or agricultural areas could have an influence on weather parameters.</p>
+<p>To include CORINE land cover data in models, we need to find them on the Internet and then, handle them in R.</p>
+<div id="get-corine-land-cover-data-on-the-internet" class="section level1">
+<h1>Get CORINE land cover data on the Internet</h1>
+<p>CORINE land cover data are available for Europe, they are compile in large files with raster or vector format. They can be found on <a href="https://land.copernicus.eu/pan-european/corine-land-cover">Copernicus</a> (the European Union’s Earth Observation Programme). Their vector files are very large because they are databases.</p>
+<p>However, we only need data from Wallonia. The research can be done on CORINE land cover data for Belgium. The <a href="https://www.geo.be/#!/home">Geoportal of the federal state of Belgium</a> is a great source of informations and CORINE land cover data are available.</p>
+<p>The CORINE land cover for 2012 is available as <a href="https://ac.ngi.be/client-open/XxyX5iFmfwldPgOfzIds?language=en&amp;openpath=ngi-standard-open%2FVectordata%2FCLC2012%2FCLC12_BE_shp_L08.zip&amp;tab=dataaccess&amp;auth=false&amp;open=true&amp;accesscode=XxyX5iFmfwldPgOfzIds">CLC_BE_shp_L08.zip</a> with the shapefile format.</p>
+<p>Then, you can use it in R.</p>
 </div>
-<div id="create-a-template-to-view-spatialized-data" class="section level1">
-<h1>Create a template to view spatialized data</h1>
-<div id="prepare-a-data-set-to-spatialize" class="section level2">
-<h2>Prepare a data set to spatialize</h2>
-<p>We have made a sample data set with one hour of record from all the stations and we spatialized temperature from a model which predict temperature on altitude, orientation and slope. This model is false but is sufficient to realize a first test for the template map.</p>
+<div id="preparing-the-integration-of-corine-land-cover-data-in-models" class="section level1">
+<h1>Preparing the integration of CORINE land cover data in models</h1>
+<div id="reading-shapefile-in-r" class="section level2">
+<h2>Reading shapefile in R</h2>
+<p>R can read shapefile thanks to <code>maptools</code> package which depends on <code>sp</code> package.</p>
+<pre class="r"><code># Download shapefile
+# Warning : go to https://ac.ngi.be/client-open/vndl5zdmH4wgScjyTVdS?language=en&amp;openpath=ngi-standard-open%2FVectordata%2FCLC2012%2FCLC12_BE_shp_L08.zip&amp;tab=dataaccess&amp;auth=false&amp;open=true&amp;accesscode=vndl5zdmH4wgScjyTVdS
+# and accept the conditions and then, download the file CLC12_BE.zip and unzip it in a folder
+library(maptools)
+corine.sp &lt;- readShapePoly(&quot;../data/CLC12_BE.shp&quot;)</code></pre>
+<p>The shapefile will be loaded as a Large SpatialPolygonsDataFrame.</p>
 </div>
-<div id="build-the-map" class="section level2">
-<h2>Build the map</h2>
-<div id="a-few-things-about-updates-and-installation-of-packages" class="section level3">
-<h3>A few things about updates and installation of packages</h3>
-<p>For the creation of the template, I used an R package : <code>tmap</code>. All the informations about this package are available to this <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html#static-plot-and-interactive-view">link</a>.</p>
-<p>However, the installation of this package needs the installation of some dependencies on Linux to run correctly. The <a href="https://github.com/mtennekes/tmap">GitHub repository of tmap</a> has a script for the installation of all the dependencies.</p>
-<p>I remind that I work on a virtual machine. This one had to be updated because the dependencies were not installed. The virtual machine runs with Docker, so it is the container Docker which was updated by rebuilding the image.</p>
-<p><em>NB</em> : Working in a virtual machine enable to do these actions without any risk. If you do not use a virtual machine, you have the risk to break your environment and spend a lot of time to rebuild it. The only inconvenient of the virtual machine is that you need to do the installation of the package every time you reload the machine if this package is not installed in the container.</p>
-<p>Once the installation of tmap is done, a lot of options to create maps are available.</p>
-<pre class="r"><code>create_map_tsa &lt;- function(
-  spatial_data.sp = NULL,
-  method.chr = NULL,
-  type.chr = NULL){
-  
-  
-  library(tmap)
-
-  be.sp &lt;- getData(&#39;GADM&#39;, country = &#39;BE&#39;, level = 1, download = TRUE)
-  wallonie.sp &lt;- be.sp[be.sp$NAME_1 == &quot;Wallonie&quot;,]
-  wallonie.3812.sp &lt;- spTransform(wallonie.sp, CRS(projargs = dplyr::filter(rgdal::make_EPSG(), code == &quot;3812&quot;)$prj4))
-  file &lt;- &quot;../../data/craw.png&quot;
-  
-  static &lt;- tm_shape(spatial_data.sp, projection=&quot;3812&quot;) +            # Projection : Belgian Lambert
-    tm_raster(&quot;response&quot;,                                             # spatialize temperature
-              palette = &quot;-RdYlBu&quot;,
-              title = &quot;Temperature (°C)&quot;,
-              auto.palette.mapping=FALSE,
-              breaks = c(quantile(spatial_data.sp$response, 0, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 0.1, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 0.2, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 0.3, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 0.4, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 0.5, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 0.6, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 0.7, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 0.8, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 0.9, na.rm = TRUE),
-                         quantile(spatial_data.sp$response, 1, na.rm = TRUE))) +
-    tm_compass(position = c(0.9,0.15), color.light = &quot;grey20&quot;) +      # north
-    tm_scale_bar(breaks = NULL, width = NA, size = 0.8, text.color = &quot;grey20&quot;,  # scale bar 
-                 color.dark = &quot;grey20&quot;, color.light = &quot;white&quot;, lwd = 1, position = c(0.22,0.01),
-                 just = NA) +
-    tm_logo(file, height = 2, halign = &quot;center&quot;, margin = 0.2,        # CRA-W logo
-            position = c(-0.01,-0.04), just = NA) +
-    tm_shape(wallonie.3812.sp) +                                      # outline of Wallonia
-    tm_borders(&quot;grey20&quot;, lwd = 1.5) +
-    tm_layout(legend.position = c(0.01,0.14),                         # parameters
-              legend.height = 0.55,
-              legend.text.size = 0.7,
-              legend.bg.color = &quot;white&quot;,
-              legend.title.size = 0.9,
-              inner.margins = c(0.03, 0.03, 0.07, 0.03),
-              frame.lwd = 0,
-              bg.color = &quot;grey85&quot;,
-              main.title = paste(&quot;Interpolated temperature with &quot;, method.chr),
-              title = &quot;Resolution : 1 km²&quot;, 
-              title.size = 0.6, 
-              title.position = c(0.01, 0.96)) +
-    tm_credits(&quot;© CRA-W&quot;, position = c(.87, 0))
-  
-  if(type.chr == &quot;static&quot;) {
-    return(static)
-  }else{
-    interactive &lt;- tmap_leaflet(static)
-    return(interactive)
-  }
-}
-create_map_tsa(spatial_data.sp = gridded.3812.sp, type.chr = &quot;static&quot;, method.chr = &quot;&lt;na&gt;&quot;)</code></pre>
-<p><img src="/post/creating_map_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div id="clipping-the-shapefile-to-wallonia-limits" class="section level2">
+<h2>Clipping the shapefile to Wallonia limits</h2>
+<p>The data frame has data from all Belgium but we only want data from Wallonia. As a consequence, we need to clip the file.</p>
+<p>To do that, we get a file with limits of Wallonia and we use it to delete data beyond the limits. Then, you have a lighter SpatialPolygonsDataFrame.</p>
+<pre class="r"><code>library(raster)
+load(&quot;~/Documents/code/agromet-tests/data-raw/wallonie.3812.sp&quot;)
+corine.wal.sp &lt;- crop(corine.sp, wallonie.3812.sp)</code></pre>
 </div>
+<div id="loading-the-legend-and-analyzing-it" class="section level2">
+<h2>Loading the legend and analyzing it</h2>
+<p>The shapefile has a legend with different codes. There are 47 labels corresponding to different type of land covering like urban areas or agricultural areas. Only 26 of them are in Wallonia.</p>
+<p>This legend is available <a href="http://www.eea.europa.eu/data-and-maps/data/corine-land-cover-2006-raster-1/corine-land-cover-classes-and/clc_legend.csv/at_download/file">here</a>.</p>
+<pre class="r"><code># Download legend
+download.file(&quot;http://www.eea.europa.eu/data-and-maps/data/corine-land-cover-2006-raster-1/corine-land-cover-classes-and/clc_legend.csv/at_download/file&quot;,
+              destfile = &quot;../data/clc_legend.csv&quot;)
+legend &lt;- read.csv(file = &quot;../data/clc_legend.csv&quot;, header = TRUE, sep = &quot;;&quot;)
+# Legend codes for Wallonia
+legend.code.wal &lt;- data.frame(unique(corine.wal.sp$code_12))
+# Legend for CORINE land cover in Wallonia
+legend.wal &lt;- subset(legend, CLC_CODE %in% legend.code.wal$unique.corine.wal.sp.code_12.)
+legend.wal</code></pre>
+<p>Now we have the different land covers. We can group some of them if they are the same influence on weather parameters.</p>
+<p>We decided to create 5 groups :</p>
+<ul>
+<li><p><em>Artificial areas</em> : it concerns fabrics, airports, urban areas, dump sites, extraction sites… where vegetation is insignificant and shade is prevalent.</p></li>
+<li><p><em>Agricultural areas</em> : it concerns crops, arable lands…</p></li>
+<li><p><em>Herbaceous vegetation</em> : pastures, natural grasslands, moors and heathlands</p></li>
+<li><p><em>Forest</em> : it concerns all the forests (coniferous, broad-leaved, mixed) and shrubs. They are a large source of shade that could influence weather parameters like temperature.</p></li>
+<li><p><em>Water</em> : it concerns water bodies and wetlands…</p></li>
+<li><p><em>Road/Rail</em> : road and rail networks. They could influence temperature because bitumen and metal could warm up the ambient air.</p></li>
+</ul>
+<p>These groups corresponds to 6 influences that we estimated different. Our first tests will run with them but it is possible that we change our groupes later to adapt them to improve our models.</p>
+</div>
+<div id="identifying-land-covers-near-to-each-pameseb-stations" class="section level2">
+<h2>Identifying land covers near to each PAMESEB stations</h2>
+<p>Measures of PAMESEB stations could be influenced by land cover. That’s why we need to identify the environment of each station.</p>
+<p>First, we get data from the position of every station in Lambert Belgium 2008 CRS.</p>
+<pre class="r"><code>stations.sp &lt;- build_agromet_stations_points.sp.fun()
+stations.sp &lt;- spTransform(stations.sp, CRSobj = &quot;+proj=lcc +lat_1=49.83333333333334 +lat_2=51.16666666666666 +lat_0=50.797815 +lon_0=4.359215833333333 +x_0=649328 +y_0=665262 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;)
+stations.sf &lt;- st_as_sf(stations.sp)</code></pre>
+<p>Then, we make a buffer around stations and we cross-reference data from CLC and stations. The distance of the buffer will be changed later to estimate the better distance for our models.</p>
+<pre class="r"><code># Make a buffer around stations
+# https://gis.stackexchange.com/questions/229453/create-a-circle-of-defined-radius-around-a-point-and-then-find-the-overlapping-a
+# https://stackoverflow.com/questions/46704878/circle-around-a-geographic-point-with-st-buffer
+stations.buff.sf &lt;- st_buffer(x = stations.sf, dist = dist.num)
+  
+# Cross-reference data to find the different land covers in the buffer
+st_crs(corine.wal.simple.sf) &lt;- st_crs(stations.buff.sf)
+class.buff.stations.sf &lt;- st_intersection(corine.wal.simple.sf, stations.buff.sf)</code></pre>
+<p>Then, we calculate the prevalence of every land cover around each station.</p>
+<p>This work gave me an exercise to fix a problem in my code, I refer you to <a href="https://ldavadan.github.io/post/">this post</a></p>
 </div>
 </div>
 </article>
     <footer class="post-footer">
       
       <div class="sharing">
-        <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fcreating_map%2f" title="Share on Facebook"></a>
-        <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=How%20to%20build%20a%20template%20map%20with%20data%20of%20AGROMET%20stations&amp;url=%2fpost%2fcreating_map%2f" title="Share on Twitter"></a>
-        <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=How%20to%20build%20a%20template%20map%20with%20data%20of%20AGROMET%20stations&amp;url=%2fpost%2fcreating_map%2f" title="Share on Google+"></a>
+        <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fget_corinelc_wallonia%2f" title="Share on Facebook"></a>
+        <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=How%20to%20get%20CORINE%20land%20cover%20data%20from%20Wallonia&amp;url=%2fpost%2fget_corinelc_wallonia%2f" title="Share on Twitter"></a>
+        <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=How%20to%20get%20CORINE%20land%20cover%20data%20from%20Wallonia&amp;url=%2fpost%2fget_corinelc_wallonia%2f" title="Share on Google+"></a>
       </div>
     </footer>
   </section>

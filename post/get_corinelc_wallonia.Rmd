@@ -1,0 +1,119 @@
+---
+title: "How to get CORINE land cover data from Wallonia"
+author: "Loïc Davadan"
+date: 2018-06-08
+output: html_document
+---
+
+The objective of the AGROMET project is to provide hourly 1km² gridded datasets of weather parameters with the best accuracy (i.e. spatialize hourly records from the stations on the whole area of Wallonia). Weather parameters will be predicted with explanatory variables. These explanatory variables are :
+
+* Digital elevation model and its derivatives like aspect and slope
+
+* Solar irradiance
+
+But other explanatory variables are discussed to be included in models. For example, CORINE land cover could be a great explanatory variables. Indeed, urban areas or agricultural areas could have an influence on weather parameters.
+
+To include CORINE land cover data in models, we need to find them on the Internet and then, handle them in R.
+
+# Get CORINE land cover data on the Internet
+
+CORINE land cover data are available for Europe, they are compile in large files with raster or vector format. They can be found on [Copernicus](https://land.copernicus.eu/pan-european/corine-land-cover) (the European Union's Earth Observation Programme). Their vector files are very large because they are databases.
+
+However, we only need data from Wallonia. The research can be done on CORINE land cover data for Belgium. The [Geoportal of the federal state of Belgium](https://www.geo.be/#!/home) is a great source of informations and CORINE land cover data are available.
+
+The CORINE land cover for 2012 is available as [CLC_BE_shp_L08.zip](https://ac.ngi.be/client-open/XxyX5iFmfwldPgOfzIds?language=en&openpath=ngi-standard-open%2FVectordata%2FCLC2012%2FCLC12_BE_shp_L08.zip&tab=dataaccess&auth=false&open=true&accesscode=XxyX5iFmfwldPgOfzIds) with the shapefile format.
+
+Then, you can use it in R.
+
+# Preparing the integration of CORINE land cover data in models
+
+## Reading shapefile in R
+
+R can read shapefile thanks to `maptools` package which depends on `sp` package.
+```{r eval = FALSE}
+# Download shapefile
+# Warning : go to https://ac.ngi.be/client-open/vndl5zdmH4wgScjyTVdS?language=en&openpath=ngi-standard-open%2FVectordata%2FCLC2012%2FCLC12_BE_shp_L08.zip&tab=dataaccess&auth=false&open=true&accesscode=vndl5zdmH4wgScjyTVdS
+# and accept the conditions and then, download the file CLC12_BE.zip and unzip it in a folder
+library(maptools)
+corine.sp <- readShapePoly("../data/CLC12_BE.shp")
+```
+The shapefile will be loaded as a Large SpatialPolygonsDataFrame.
+
+## Clipping the shapefile to Wallonia limits
+
+The data frame has data from all Belgium but we only want data from Wallonia. As a consequence, we need to clip the file.
+
+To do that, we get a file with limits of Wallonia and we use it to delete data beyond the limits. Then, you have a lighter SpatialPolygonsDataFrame.
+
+```{r eval=FALSE}
+library(raster)
+load("~/Documents/code/agromet-tests/data-raw/wallonie.3812.sp")
+corine.wal.sp <- crop(corine.sp, wallonie.3812.sp)
+```
+
+## Loading the legend and analyzing it
+
+The shapefile has a legend with different codes. There are 47 labels corresponding to different type of land covering like urban areas or agricultural areas. Only 26 of them are in Wallonia.
+
+This legend is available [here](http://www.eea.europa.eu/data-and-maps/data/corine-land-cover-2006-raster-1/corine-land-cover-classes-and/clc_legend.csv/at_download/file).
+
+```{r eval=FALSE}
+# Download legend
+download.file("http://www.eea.europa.eu/data-and-maps/data/corine-land-cover-2006-raster-1/corine-land-cover-classes-and/clc_legend.csv/at_download/file",
+              destfile = "../data/clc_legend.csv")
+legend <- read.csv(file = "../data/clc_legend.csv", header = TRUE, sep = ";")
+# Legend codes for Wallonia
+legend.code.wal <- data.frame(unique(corine.wal.sp$code_12))
+# Legend for CORINE land cover in Wallonia
+legend.wal <- subset(legend, CLC_CODE %in% legend.code.wal$unique.corine.wal.sp.code_12.)
+legend.wal
+```
+
+Now we have the different land covers. We can group some of them if they are the same influence on weather parameters.
+
+We decided to create 5 groups :
+
+* _Artificial areas_ : it concerns fabrics, airports, urban areas, dump sites, extraction sites... where vegetation is insignificant and shade is prevalent.
+
+* _Agricultural areas_ : it concerns crops, arable lands...
+
+* _Herbaceous vegetation_ : pastures, natural grasslands, moors and heathlands
+
+* _Forest_ : it concerns all the forests (coniferous, broad-leaved, mixed) and shrubs. They are a large source of shade that could influence weather parameters like temperature.
+
+* _Water_ : it concerns water bodies and wetlands...
+
+* _Road/Rail_ : road and rail networks. They could influence temperature because bitumen and metal could warm up the ambient air.
+
+These groups corresponds to 6 influences that we estimated different. Our first tests will run with them but it is possible that we change our groupes later to adapt them to improve our models.
+
+## Identifying land covers near to each PAMESEB stations
+
+Measures of PAMESEB stations could be influenced by land cover. That's why we need to identify the environment of each station.
+
+First, we get data from the position of every station in Lambert Belgium 2008 CRS.
+
+```{r eval=FALSE}
+stations.sp <- build_agromet_stations_points.sp.fun()
+stations.sp <- spTransform(stations.sp, CRSobj = "+proj=lcc +lat_1=49.83333333333334 +lat_2=51.16666666666666 +lat_0=50.797815 +lon_0=4.359215833333333 +x_0=649328 +y_0=665262 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+stations.sf <- st_as_sf(stations.sp)
+```
+
+Then, we make a buffer around stations and we cross-reference data from CLC and stations. 
+The distance of the buffer will be changed later to estimate the better distance for our models.
+
+```{r eval=FALSE}
+# Make a buffer around stations
+# https://gis.stackexchange.com/questions/229453/create-a-circle-of-defined-radius-around-a-point-and-then-find-the-overlapping-a
+# https://stackoverflow.com/questions/46704878/circle-around-a-geographic-point-with-st-buffer
+stations.buff.sf <- st_buffer(x = stations.sf, dist = dist.num)
+  
+# Cross-reference data to find the different land covers in the buffer
+st_crs(corine.wal.simple.sf) <- st_crs(stations.buff.sf)
+class.buff.stations.sf <- st_intersection(corine.wal.simple.sf, stations.buff.sf)
+```
+
+Then, we calculate the prevalence of every land cover around each station.
+
+This work gave me an exercise to fix a problem in my code, I refer you to [this post](https://ldavadan.github.io/post/)
+

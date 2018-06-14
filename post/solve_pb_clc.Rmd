@@ -1,0 +1,37 @@
+---
+title: "Solve a problem in computing the area of each polygon inside a buffer"
+author: "Loïc Davadan"
+date: 2018-06-14
+output: html_document
+---
+
+In the context of the AGROMET project, we searched to include data from CORINE land cover in our models. I refer you to my post [How to get CORINE land cover data from Wallonia](https://ldavadan.github.io/post/) where I explained how we got data and how we reclass land covers in groups.
+
+During my work, I wanted to calculate the part of each land cover around every station and I am arrived at a problem.
+
+# Explanation of the method and emerging problem
+
+First, as I explained it in my precedent post, I imported data from CORINE land cover and its legend. I transformed the legend to make a few classes more congruent with our project. And then, I imported all the stations.
+
+Once that was done, I have made spatial transformations and verified the CRS (Coordinate Reference System) of each data. Lambert 2008 is the CRS we need four our spatial projections.
+
+Then, the objective was to observe the different land covers around each station. That's why I created a buffer around each station with a distance of 100 meters.
+
+Then, I made some manipulations to extract the land covers which are around the stations et compute the part of each of them. And here is the problem ! 4 stations had an agricultural area near to them but its prevalence inside the buffer was __159%__ !!
+
+# Investigation to find the error
+
+## Searching which polygon is problematic
+
+I checked every step of my code to find where appears the error. I found a polygon which appears 4 times whereas all other polygons appear only once. I observed it with `mapview` to check if this polygon was the one which appears on the 4 different stations. And this polygon was the one which is problematic.
+
+Then, I looked for the step where a computation was done on this polygon. Once it was found, I understood it was because of the ID of the polygon which was appearing 4 times and then, a computation was done on it. For that reason, I made a new ID that was named customID to attribute 4 ID to this polygon, one for each appearance. Then, the computation was correctly done and the percentage was correct.
+
+
+# Conclusion
+
+Investigate to find an error in the code is a very important part. It has to be methodic, examining every line of code, understanding every computation, and finding solutions and alternatives. That requires to look for documentation. It was a very formative exercise.
+
+
+
+
