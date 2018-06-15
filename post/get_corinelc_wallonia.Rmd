@@ -4,6 +4,9 @@ author: "Loïc Davadan"
 date: 2018-06-08
 output: html_document
 ---
+```{r include=FALSE}
+load("~/Documents/code/agromet-tests/env_rmd_clc.RData")
+```
 
 The objective of the AGROMET project is to provide hourly 1km² gridded datasets of weather parameters with the best accuracy (i.e. spatialize hourly records from the stations on the whole area of Wallonia). Weather parameters will be predicted with explanatory variables. These explanatory variables are :
 
@@ -47,7 +50,6 @@ To do that, we get a file with limits of Wallonia and we use it to delete data b
 
 ```{r eval=FALSE}
 library(raster)
-load("~/Documents/code/agromet-tests/data-raw/wallonie.3812.sp")
 corine.wal.sp <- crop(corine.sp, wallonie.3812.sp)
 ```
 
@@ -66,14 +68,13 @@ legend <- read.csv(file = "../data/clc_legend.csv", header = TRUE, sep = ";")
 legend.code.wal <- data.frame(unique(corine.wal.sp$code_12))
 # Legend for CORINE land cover in Wallonia
 legend.wal <- subset(legend, CLC_CODE %in% legend.code.wal$unique.corine.wal.sp.code_12.)
-legend.wal
 ```
 
 Now we have the different land covers. We can group some of them if they are the same influence on weather parameters.
 
 We decided to create 5 groups :
 
-* _Artificial areas_ : it concerns fabrics, airports, urban areas, dump sites, extraction sites... where vegetation is insignificant and shade is prevalent.
+* _Artificial areas_ : it concerns fabrics, airports, urban areas, dump sites, extraction sites, roads, rails... where vegetation is insignificant and shade is prevalent.
 
 * _Agricultural areas_ : it concerns crops, arable lands...
 
@@ -83,9 +84,7 @@ We decided to create 5 groups :
 
 * _Water_ : it concerns water bodies and wetlands...
 
-* _Road/Rail_ : road and rail networks. They could influence temperature because bitumen and metal could warm up the ambient air.
-
-These groups corresponds to 6 influences that we estimated different. Our first tests will run with them but it is possible that we change our groupes later to adapt them to improve our models.
+These groups corresponds to 5 influences that we estimated different. Our first tests will run with them but it is possible that we change our groupes later to adapt them to improve our models.
 
 ## Identifying land covers near to each PAMESEB stations
 
@@ -117,3 +116,30 @@ Then, we calculate the prevalence of every land cover around each station.
 
 This work gave me an exercise to fix a problem in my code, I refer you to [this post](https://ldavadan.github.io/post/solve_pb_clc/).
 
+```{r echo=FALSE}
+head(class.buff.df[,1:4])
+```
+
+# Further experiments
+
+## Conversion of the data
+
+The precedent table is raw and not clear. It can be transformed to be more readable.
+
+```{r echo=FALSE}
+head(class.stations.df)
+```
+
+
+## Extending the function to entire Wallonia
+
+The objective of the project is to create a map with 16894 points, one for every km² in Wallonia. This work on CORINE land cover can be extended to these points taking a grid with all these points in the function previously created.
+
+Obviously, the computation is longer because we have 16894 points whereas the first computation (on real stations) has only 29 points. It tooks approximately 7 minutes but it works perfectly.
+
+Below, a result for 163 points (`mapview` cannot print 16894 points on the map).
+```{r echo=FALSE}
+library(mapview)
+mapview(class.grid.wal.sf)
+head(result)
+```
