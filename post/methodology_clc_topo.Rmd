@@ -1,0 +1,75 @@
+---
+title: "Methodology to prepare CLC and DMT data"
+author: "Loïc Davadan"
+date: 2018-06-18
+output: html_document
+---
+
+```{r include=FALSE}
+load("~/Documents/code/agromet-tests/env_clc_meth.RData")
+```
+
+In the context of the AGROMET project, we need CORINE land cover data and digital terrain model to improve models.
+
+I refer you to my other posts about CORINE land cover (CLC) :
+
+* How to [get CLC data from Wallonia](https://ldavadan.github.io/post/get_corinelc_wallonia/)
+
+* Solve a problem in [computing the area of each polygon inside a buffer](https://ldavadan.github.io/post/solve_pb_clc/)
+
+This post deals with the methodology which was applied to prepare data before using them in our models.
+
+# CLC
+
+First, I was focused on CORINE land cover data. My work has two parts :
+
+* A part about physical stations, i.e. stations from PAMESEB network where data are available
+
+* Another part on the grid of Wallonia with virtual stations (one for each km²)
+
+## Physical stations
+
+The methodology was described in [this post](https://ldavadan.github.io/post/get_corinelc_wallonia/).
+
+<insert map with buffer around stations>
+
+```{r echo=FALSE}
+library(mapview)
+mapview(stations.buff.sf)
+```
+
+## Virtual stations
+
+Different methods were used to observe CORINE land cover near to each virtual station.
+
+First, a grid of Wallonia with cells of 1km² has been created. It is a simple feature `sf`.
+
+### Using centroid of each cell and creating a buffer around
+
+I refer you to the bottom of [this page](https://ldavadan.github.io/post/get_corinelc_wallonia/) where I have already explained the method.
+
+The limit of this method is that we have a loss of information between every virtual station with gap in the map. That is an important problem for the future predictions.
+
+![Buffers](/post/methodology_clc_topo_files/CLC_buffer.png){width=90%}
+
+```{r echo=FALSE}
+head(class.buff.clean.df)
+```
+
+### Using entire cell
+
+This time, I will use all the cell and not only its centroid.
+
+The method was close to the precedent one with buffers but I will have no gap in my map.
+
+I used simple features `sf` for computations but I had a problem with the function `st_intersection()`. Indeed, an error appeared : 
+
+`Error in CPL_geos_op2(op, st_geometry(x), st_geometry(y)) : TopologyException: Input geom 1 is invalid: Ring Self-intersection at or near point [coordinates of the point]`. 
+
+After a long investigation, the solution we found was to install a new package : `lwgeom` to use a function which works with `st_intersection()`. Then, the issue was solved.
+
+![Grid](/post/methodology_clc_topo_files/CLC_grid.png){width=90%}
+
+```{r echo=FALSE}
+head(class.clip.clean.df)
+```
