@@ -5,9 +5,11 @@ date: 2018-05-30
 output: html_document
 ---
 
+###### Last update : 20/06/2018
+
 This post will sum up a few sources of information useful if you are interested in spatialization or development.
 
-# Spatialization
+# Spatialization and GIS
 
 **Definition** : Spatialization or spatial interpolation creates a continuous surface from values measured at discrete locations to predict values at any location in the interest zone with the best accuracy.
 
@@ -15,6 +17,11 @@ The book [Using ArcGIS Geostatistical Analyst](http://dusk2.geo.orst.edu/gis/geo
 
 The book [Geocomputation with R](http://geocompr.robinlovelace.net/) will give you a lot of informations about what you can do with geographic data.
 
+Geospatialization with sf and sp packages : [Introduction to GIS with R](https://www.jessesadler.com/post/gis-with-r-intro/).
+
+Geospatialization tools on R with dplyr and ggmap : [Geocoding with R](https://www.jessesadler.com/post/geocoding-with-r/).
+
+Another source of knowledge about [spatial data manipulation](http://rstudio-pubs-static.s3.amazonaws.com/7993_6b081819ba184047802a508a7f3187cb.html).
 
 # Machine learning
 
@@ -24,10 +31,10 @@ A [blog](https://machinelearningmastery.com/) very complete about machine learni
 
 # R tools
 
-Use [Rmarkdown](https://rmarkdown.rstudio.com/) to write your reports, your presentations or your HTML pages.
+Use [Rmarkdown](https://rmarkdown.rstudio.com/) to write your reports, your presentations or your HTML pages. Its [reference guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) is very useful !
 Use [Blogdown](https://bookdown.org/yihui/blogdown/) to create our own blog.
 Use [Leaflet](https://rstudio.github.io/leaflet/) to generate maps.
-
+Have all the tools in hand to use efficiently R with these [cheatsheets](https://www.rstudio.com/resources/cheatsheets/).
 
 # AGROMET project
 

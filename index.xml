@@ -6,10 +6,20 @@
     <description>Recent content on Personal website of Loïc Davadan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Get solar irradiance data from Wallonia</title>
+      <link>/post/get_solar_irradiance_data/</link>
+      <pubDate>Wed, 20 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/get_solar_irradiance_data/</guid>
+      <description>Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That’s why we need to access to these data and prepare them to be included in the models.
+Get data To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API. Then, a request can be done to load data that we want. These data are recently available on the API, from June 09th.</description>
+    </item>
     
     <item>
       <title>Methodology to prepare CLC and DMT data</title>
@@ -94,10 +104,9 @@ Find the nearest station Fisrt, I checked where was Frasnes-lez-Anvaing on the p
       <pubDate>Wed, 30 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/resources_documents/</guid>
-      <description>This post will sum up a few sources of information useful if you are interested in spatialization or development.
-Spatialization Definition : Spatialization or spatial interpolation creates a continuous surface from values measured at discrete locations to predict values at any location in the interest zone with the best accuracy.
-The book Using ArcGIS Geostatistical Analyst will give you an efficient overview about spatialization.
-The book Geocomputation with R will give you a lot of informations about what you can do with geographic data.</description>
+      <description>Last update : 20/06/2018 This post will sum up a few sources of information useful if you are interested in spatialization or development.
+ Spatialization and GIS Definition : Spatialization or spatial interpolation creates a continuous surface from values measured at discrete locations to predict values at any location in the interest zone with the best accuracy.
+The book Using ArcGIS Geostatistical Analyst will give you an efficient overview about spatialization.</description>
     </item>
     
     <item>

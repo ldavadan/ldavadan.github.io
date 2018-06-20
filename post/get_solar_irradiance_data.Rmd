@@ -1,0 +1,40 @@
+---
+title: "Get solar irradiance data from Wallonia"
+author: "Loïc Davadan"
+date: 2018-06-20
+output: html_document
+---
+
+
+Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That's why we need to access to these data and prepare them to be included in the models.
+
+# Get data
+
+To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API. Then, a request can be done to load data that we want.
+These data are recently available on the API, from June 09th.
+
+The request returns a [JSON](https://stackoverflow.com/questions/383692/what-is-json-and-why-would-i-use-it) (JavaScript Object Notation) file. This file is built on two structures : a collection of name/value pairs and an ordered list of values.
+
+The JSON file can be read on R, with the package `jsonlite` for example. It is presented like a Large List. For the project, a list is not very convenient. It is better to work with data frame.
+
+# Prepare data
+
+## Understanding the structure of a JSON file
+
+JSON files are considered as a list in R. They have customizable informations like its version or its terms of service and features.
+
+These features have informations about data like their type, their geometry and coordinates and their properties which contain measures. In that way, the JSON file is a list of lists and some of these lists are data frames. It is important to sort all data we need, especially considering they can be stored at differents locations in the file.
+
+## Manipulating solar irradiance data
+
+In the case of the JSON file for solar irradiance data, I wanted to have data about the measures and their dates but also about the location of each measures. But they were stored at different locations and with different formats.
+
+The solution I used was to make loops in my code to group data. In fact, I created new columns in my data frames containing measures of solar irradiance where I put the coordinates of the stations which took measures. Then, I could create a data frame with all the hourly measures in Wallonia during a defined period.
+
+Finally, I could convert my data frame to a simple feature `sf` to observe data on a map. There are 875 points where measures are made, spread out all Wallonia.
+
+
+
+
+
+
