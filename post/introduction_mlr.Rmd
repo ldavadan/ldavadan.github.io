@@ -1,0 +1,59 @@
+---
+title: "Introduction to machine learning in R"
+author: "Loïc Davadan"
+date: 2018-06-29
+output: html_document
+---
+
+When I began my internship in the CRA-W, I had no idea of what machine learning was. Its weight in the AGROMET project required from me that I learn basis and some applications to apply it in R.
+
+That's why, writing a brief introduction on machine learning and on its utilisation in R seems to be a good idea.
+
+# What is machine learning ?
+
+Machine learning is a subset of deep learning or Artificial Intelligence that provides an ability to "learn" with data.
+
+Machine learning is the idea that some generic algorithms can tell something interesting about a set of data without  having to write any custom code specific to the problem. Instead of writing code, you feed data to the generic algorithm and it builds its own logic based on the data.
+
+There are 2 types of machine learning : supervised and unsupervised learning.
+
+## Supervised machine learning
+
+In practice, most of machine learning uses supervised learning.
+
+In this learning, the algorithm tries to learn from examples we give to it and then it returns a model of prediction. Classification and regression are supervised machine learning.
+
+In the case of the AGROMET project, we want to predict the temperature from some explanatory variables like land cover or solar irradiance. To do that, we feed the algorithm with hourly data from a period long enough including temperature measured. The objective of the algorithm is to return an equation where temperature depends on some variables. The equation will have this form : $Y = a_0 + a_1.X_1 + a_2.X_2 + ... + a_n.X_n$ where $Y$ is your variable to predict and $X_n$ your $n$ explanatory variables. This equation is our model of prediction inferred by multiple linear regression.
+
+## Unsupervised machine learning
+
+In contrast with supervised learning, unsupervised learning consists in algorithms which have to find themselves interesting structures in the data. It differs from supervised learning because correct answers are not given to the machine and it has to find answers itself. Association and clustering are unsupervised machine learning.
+
+For example, take 400 pictures of cats and 400 of dogs. While supervised learning will give these pictures with the answer to the machine to make it to find a way to discriminate cats and dogs, unsupervised learning will give only the pictures and the machine will have to find itself differences between cats and dogs separating them in two groups. Obviously, the machine will not know that one group is corresponding to cat and the other to dog because we did not labelled them but the machine will be able to distinguish them like two separate entities.
+
+# Machine learning approach in the case of the project
+
+## Definitions
+
+Now, I will explain the approach used for the AGROMET project. The objective is to predict weather parameters (temperature, relative humidity, leaves wetness). We use data from meteorological stations and from other sources like EUMETSAT for solar irradiance and COPERNICUS for land cover.
+
+Here is our approach :
+
+We choose a weather parameter to predict, temperature for example. It is our *target*.
+
+Then, we define our explanatory variables, i.e. the parameters we want to build our model. These variables are our *task* and it contains target data.
+
+In our case, we will use several statistical methods to build our model like kriging, multiple linear regression model or neural networks. Those which are chosen to build a model are called *learners* and will be compared.
+
+To measure performance of our predictions, we need to use a cross-validation resampling strategy. Several methods exist but we will use the Leave-One-Out cross-validation method. It consists to establish model based on every samples except one which will be the sample where the model is tested to compute the error and then doing it again as many times as the number of samples. The error measured for our models will be the Root Mean Squared Error (RMSE).
+
+Our spatialisation methodology is described in a scheme [here](https://pokyah.github.io/agrometeor-methodo-spatial/assets/uml_images/spatialization-methodology.svg).
+
+## Machine learning in R
+
+The major part of our work is done on RStudio. It is a very powerful open-source software for R. Moreover, a R package is available which provides the infrastructure to run machine learning. This package [mlr](http://mlr-org.github.io/mlr/index.html) is very complete to build models, do predictions and evaluate performances.
+
+
+
+
+

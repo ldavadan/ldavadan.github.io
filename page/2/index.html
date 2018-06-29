@@ -10,7 +10,7 @@
     
 
     
-    <title>Get solar irradiance data from Wallonia</title>
+    <title>Personal website</title>
 
     
     
@@ -20,18 +20,14 @@
 
   
   <meta name="author" content="Loïc Davadan" />
-  <meta name="description" content="Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That’s why we need to access to these data and prepare them to be included in the models.
-Get data To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API from EUMETSAT website. Data that we have are DSSF (Downward Surface Shortwave Flux) with a frequency of 1 day (MDSSF) or 30 minutes (DIDSSF) and measured in W/m²." />
+  <meta name="description" content="Logbook for my intership" />
 
   
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@gohugoio" />
-    <meta name="twitter:title" content="Get solar irradiance data from Wallonia" />
-    <meta name="twitter:description" content="Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That’s why we need to access to these data and prepare them to be included in the models.
-Get data To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API from EUMETSAT website. Data that we have are DSSF (Downward Surface Shortwave Flux) with a frequency of 1 day (MDSSF) or 30 minutes (DIDSSF) and measured in W/m²." />
-    <meta name="twitter:image" content="/img/avatar.jpg" />
-  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@gohugoio" />
+  <meta name="twitter:title" content="Personal website" />
+  <meta name="twitter:description" content="Logbook for my intership" />
+  <meta name="twitter:image" content="/img/avatar.jpg" />
 
 
 
@@ -39,7 +35,7 @@ Get data To obtain solar irradiance data from Wallonia, those have been included
 <meta name="generator" content="Hugo 0.33">
 
 
-<link rel="canonical" href="../../post/get_solar_irradiance_data/">
+<link rel="canonical" href="../../">
 <link rel="alternative" href="../../index.xml" title="Personal website of Loïc Davadan" type="application/atom+xml">
 
 
@@ -91,7 +87,7 @@ Get data To obtain solar irradiance data from Wallonia, those have been included
     sizes="(max-width: 800px) 36px, 128px">
   </amp-img>
   
-    <h2 class="title"><a href="../../" title="Personal website of Loïc Davadan">Personal website of Loïc Davadan</a></h2>
+    <h1 class="title"><a href="../../" title="Personal website of Loïc Davadan">Personal website of Loïc Davadan</a></h1>
   
   <p class="subtitle">Personal website for my internship</p>
   <button class="menu-toggle" type="button" on="tap:sidebar.open">
@@ -148,45 +144,37 @@ Get data To obtain solar irradiance data from Wallonia, those have been included
 
 </header>
 
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Get solar irradiance data from Wallonia</h1>
-      <p class="entry-meta"><span class="entry-time">Jun 20, 2018</span> 3 min read</p>
-    </header>
+  <section class="main entry-list">
     
-
-    <article class="post-content"><p>Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That’s why we need to access to these data and prepare them to be included in the models.</p>
-<div id="get-data" class="section level1">
-<h1>Get data</h1>
-<p>To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API from EUMETSAT website. Data that we have are DSSF (Downward Surface Shortwave Flux) with a frequency of 1 day (MDSSF) or 30 minutes (DIDSSF) and measured in W/m². Solar irradiance is computated on the ground and the spectrum band covers UV. All the informations are available <a href="https://landsaf.ipma.pt/en/products/longwave-shortwave-radiation/dssf/">here</a>.</p>
-<p>Then, a request can be done to load data that we want. These data are recently available on the API, from June 09th, because there is no history data. That is a problem at the moment because models that we want to compute will be made for prior years.</p>
-<p>The request returns a <a href="https://stackoverflow.com/questions/383692/what-is-json-and-why-would-i-use-it">JSON</a> (JavaScript Object Notation) file. This file is built on two structures : a collection of name/value pairs and an ordered list of values.</p>
-<p>The JSON file can be read on R, with the package <code>jsonlite</code> for example. It is presented like a Large List. For the project, a list is not very convenient. It is better to work with data frame.</p>
-</div>
-<div id="prepare-data" class="section level1">
-<h1>Prepare data</h1>
-<div id="understanding-the-structure-of-a-json-file" class="section level2">
-<h2>Understanding the structure of a JSON file</h2>
-<p>JSON files are considered as a list in R. They have customizable informations like its version or its terms of service and features.</p>
-<p>These features have informations about data like their type, their geometry and coordinates and their properties which contain measures. In that way, the JSON file is a list of lists and some of these lists are data frames. It is important to sort all data we need, especially considering they can be stored at differents locations in the file.</p>
-</div>
-<div id="manipulating-solar-irradiance-data" class="section level2">
-<h2>Manipulating solar irradiance data</h2>
-<p>In the case of the JSON file for solar irradiance data, I wanted to have data about the measures and their dates but also about the location of each measures. But they were stored at different locations and with different formats.</p>
-<p>The solution I used was to make loops in my code to group data. In fact, I created new columns in my data frames containing measures of solar irradiance where I put the coordinates of the stations which took measures. Then, I could create a data frame with all the hourly measures in Wallonia during a defined period.</p>
-<p>Finally, I could convert my data frame to a simple feature <code>sf</code> to observe data on a map. There are 875 points where measures are made, spread out all Wallonia. That is inadequate to build model with a high resolution. I realized a spatialization of these data to cover all Wallonia with a resolution of 1 km². But to do that, I used centroids of each 1km². It works perfectly first but the objective is to obtain a continuous spatialization. And creating a 1 km² cell from points is more difficult. The solution was to join two simple features : one is the grid with 1 km² cells and the other one is the spatialized points. Then, I get data from point and give them to polygons where points are.</p>
-<p>Now I have a grid with solar irradiance with a resolution of 1 km².</p>
-</div>
-</div>
-</article>
-    <footer class="post-footer">
+    
       
-      <div class="sharing">
-        <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fget_solar_irradiance_data%2f" title="Share on Facebook"></a>
-        <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Get%20solar%20irradiance%20data%20from%20Wallonia&amp;url=%2fpost%2fget_solar_irradiance_data%2f" title="Share on Twitter"></a>
-        <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Get%20solar%20irradiance%20data%20from%20Wallonia&amp;url=%2fpost%2fget_solar_irradiance_data%2f" title="Share on Google+"></a>
-      </div>
-    </footer>
+        <article class="entry-single">
+  
+  <header class="entry-header">
+    <h3 class="entry-title"><a href="../../post/store_api-token/" title="Using AGROMET API to get weather data" class="entry-link">Using AGROMET API to get weather data</a></h3>
+  </header>
+
+  <p class="entry-summary">An API (Application Programming Interface) allows connections to be established between several software programs to exchange data. It needs the authentification of the user with a API key or token. Storing the API key in a script enables to call it in other commands to modify the files of the API. This token will not be available for other users, avoiding in that way an abusive use of this key by others.</p>
+  <footer class="entry-footer">
+    <p class="entry-meta"><span class="entry-time">May 30, 2018</span> 2 min read</p>
+    <div class="sharing">
+      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fstore_api-token%2f" title="Share on Facebook"></a>
+      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Using%20AGROMET%20API%20to%20get%20weather%20data&amp;url=%2fpost%2fstore_api-token%2f" title="Share on Twitter"></a>
+      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Using%20AGROMET%20API%20to%20get%20weather%20data&amp;url=%2fpost%2fstore_api-token%2f" title="Share on Google+"></a>
+    </div>
+  </footer>
+</article>
+
+      
+    
+    
+      <nav class="pagination">
+        
+          <a class="pagination-btn" href="../../">← Newer Posts</a>
+        
+        
+      </nav>
+    
   </section>
   <footer class="footer">
   <p>Copyright © 2018 Personal website of Loïc Davadan</p>

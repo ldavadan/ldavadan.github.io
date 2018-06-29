@@ -10,7 +10,7 @@
     
 
     
-    <title>Get solar irradiance data from Wallonia</title>
+    <title>Introduction to machine learning in R</title>
 
     
     
@@ -20,16 +20,18 @@
 
   
   <meta name="author" content="Loïc Davadan" />
-  <meta name="description" content="Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That’s why we need to access to these data and prepare them to be included in the models.
-Get data To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API from EUMETSAT website. Data that we have are DSSF (Downward Surface Shortwave Flux) with a frequency of 1 day (MDSSF) or 30 minutes (DIDSSF) and measured in W/m²." />
+  <meta name="description" content="When I began my internship in the CRA-W, I had no idea of what machine learning was. Its weight in the AGROMET project required from me that I learn basis and some applications to apply it in R.
+That’s why, writing a brief introduction on machine learning and on its utilisation in R seems to be a good idea.
+What is machine learning ? Machine learning is a subset of deep learning or Artificial Intelligence that provides an ability to “learn” with data." />
 
   
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@gohugoio" />
-    <meta name="twitter:title" content="Get solar irradiance data from Wallonia" />
-    <meta name="twitter:description" content="Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That’s why we need to access to these data and prepare them to be included in the models.
-Get data To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API from EUMETSAT website. Data that we have are DSSF (Downward Surface Shortwave Flux) with a frequency of 1 day (MDSSF) or 30 minutes (DIDSSF) and measured in W/m²." />
+    <meta name="twitter:title" content="Introduction to machine learning in R" />
+    <meta name="twitter:description" content="When I began my internship in the CRA-W, I had no idea of what machine learning was. Its weight in the AGROMET project required from me that I learn basis and some applications to apply it in R.
+That’s why, writing a brief introduction on machine learning and on its utilisation in R seems to be a good idea.
+What is machine learning ? Machine learning is a subset of deep learning or Artificial Intelligence that provides an ability to “learn” with data." />
     <meta name="twitter:image" content="/img/avatar.jpg" />
   
 
@@ -39,7 +41,7 @@ Get data To obtain solar irradiance data from Wallonia, those have been included
 <meta name="generator" content="Hugo 0.33">
 
 
-<link rel="canonical" href="../../post/get_solar_irradiance_data/">
+<link rel="canonical" href="../../post/introduction_mlr/">
 <link rel="alternative" href="../../index.xml" title="Personal website of Loïc Davadan" type="application/atom+xml">
 
 
@@ -150,41 +152,54 @@ Get data To obtain solar irradiance data from Wallonia, those have been included
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">Get solar irradiance data from Wallonia</h1>
-      <p class="entry-meta"><span class="entry-time">Jun 20, 2018</span> 3 min read</p>
+      <h1 class="post-title">Introduction to machine learning in R</h1>
+      <p class="entry-meta"><span class="entry-time">Jun 29, 2018</span> 4 min read</p>
     </header>
     
 
-    <article class="post-content"><p>Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That’s why we need to access to these data and prepare them to be included in the models.</p>
-<div id="get-data" class="section level1">
-<h1>Get data</h1>
-<p>To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API from EUMETSAT website. Data that we have are DSSF (Downward Surface Shortwave Flux) with a frequency of 1 day (MDSSF) or 30 minutes (DIDSSF) and measured in W/m². Solar irradiance is computated on the ground and the spectrum band covers UV. All the informations are available <a href="https://landsaf.ipma.pt/en/products/longwave-shortwave-radiation/dssf/">here</a>.</p>
-<p>Then, a request can be done to load data that we want. These data are recently available on the API, from June 09th, because there is no history data. That is a problem at the moment because models that we want to compute will be made for prior years.</p>
-<p>The request returns a <a href="https://stackoverflow.com/questions/383692/what-is-json-and-why-would-i-use-it">JSON</a> (JavaScript Object Notation) file. This file is built on two structures : a collection of name/value pairs and an ordered list of values.</p>
-<p>The JSON file can be read on R, with the package <code>jsonlite</code> for example. It is presented like a Large List. For the project, a list is not very convenient. It is better to work with data frame.</p>
+    <article class="post-content"><p>When I began my internship in the CRA-W, I had no idea of what machine learning was. Its weight in the AGROMET project required from me that I learn basis and some applications to apply it in R.</p>
+<p>That’s why, writing a brief introduction on machine learning and on its utilisation in R seems to be a good idea.</p>
+<div id="what-is-machine-learning" class="section level1">
+<h1>What is machine learning ?</h1>
+<p>Machine learning is a subset of deep learning or Artificial Intelligence that provides an ability to “learn” with data.</p>
+<p>Machine learning is the idea that some generic algorithms can tell something interesting about a set of data without having to write any custom code specific to the problem. Instead of writing code, you feed data to the generic algorithm and it builds its own logic based on the data.</p>
+<p>There are 2 types of machine learning : supervised and unsupervised learning.</p>
+<div id="supervised-machine-learning" class="section level2">
+<h2>Supervised machine learning</h2>
+<p>In practice, most of machine learning uses supervised learning.</p>
+<p>In this learning, the algorithm tries to learn from examples we give to it and then it returns a model of prediction. Classification and regression are supervised machine learning.</p>
+<p>In the case of the AGROMET project, we want to predict the temperature from some explanatory variables like land cover or solar irradiance. To do that, we feed the algorithm with hourly data from a period long enough including temperature measured. The objective of the algorithm is to return an equation where temperature depends on some variables. The equation will have this form : <span class="math inline">\(Y = a_0 + a_1.X_1 + a_2.X_2 + ... + a_n.X_n\)</span> where <span class="math inline">\(Y\)</span> is your variable to predict and <span class="math inline">\(X_n\)</span> your <span class="math inline">\(n\)</span> explanatory variables. This equation is our model of prediction inferred by multiple linear regression.</p>
 </div>
-<div id="prepare-data" class="section level1">
-<h1>Prepare data</h1>
-<div id="understanding-the-structure-of-a-json-file" class="section level2">
-<h2>Understanding the structure of a JSON file</h2>
-<p>JSON files are considered as a list in R. They have customizable informations like its version or its terms of service and features.</p>
-<p>These features have informations about data like their type, their geometry and coordinates and their properties which contain measures. In that way, the JSON file is a list of lists and some of these lists are data frames. It is important to sort all data we need, especially considering they can be stored at differents locations in the file.</p>
+<div id="unsupervised-machine-learning" class="section level2">
+<h2>Unsupervised machine learning</h2>
+<p>In contrast with supervised learning, unsupervised learning consists in algorithms which have to find themselves interesting structures in the data. It differs from supervised learning because correct answers are not given to the machine and it has to find answers itself. Association and clustering are unsupervised machine learning.</p>
+<p>For example, take 400 pictures of cats and 400 of dogs. While supervised learning will give these pictures with the answer to the machine to make it to find a way to discriminate cats and dogs, unsupervised learning will give only the pictures and the machine will have to find itself differences between cats and dogs separating them in two groups. Obviously, the machine will not know that one group is corresponding to cat and the other to dog because we did not labelled them but the machine will be able to distinguish them like two separate entities.</p>
 </div>
-<div id="manipulating-solar-irradiance-data" class="section level2">
-<h2>Manipulating solar irradiance data</h2>
-<p>In the case of the JSON file for solar irradiance data, I wanted to have data about the measures and their dates but also about the location of each measures. But they were stored at different locations and with different formats.</p>
-<p>The solution I used was to make loops in my code to group data. In fact, I created new columns in my data frames containing measures of solar irradiance where I put the coordinates of the stations which took measures. Then, I could create a data frame with all the hourly measures in Wallonia during a defined period.</p>
-<p>Finally, I could convert my data frame to a simple feature <code>sf</code> to observe data on a map. There are 875 points where measures are made, spread out all Wallonia. That is inadequate to build model with a high resolution. I realized a spatialization of these data to cover all Wallonia with a resolution of 1 km². But to do that, I used centroids of each 1km². It works perfectly first but the objective is to obtain a continuous spatialization. And creating a 1 km² cell from points is more difficult. The solution was to join two simple features : one is the grid with 1 km² cells and the other one is the spatialized points. Then, I get data from point and give them to polygons where points are.</p>
-<p>Now I have a grid with solar irradiance with a resolution of 1 km².</p>
+</div>
+<div id="machine-learning-approach-in-the-case-of-the-project" class="section level1">
+<h1>Machine learning approach in the case of the project</h1>
+<div id="definitions" class="section level2">
+<h2>Definitions</h2>
+<p>Now, I will explain the approach used for the AGROMET project. The objective is to predict weather parameters (temperature, relative humidity, leaves wetness). We use data from meteorological stations and from other sources like EUMETSAT for solar irradiance and COPERNICUS for land cover.</p>
+<p>Here is our approach :</p>
+<p>We choose a weather parameter to predict, temperature for example. It is our <em>target</em>.</p>
+<p>Then, we define our explanatory variables, i.e. the parameters we want to build our model. These variables are our <em>task</em> and it contains target data.</p>
+<p>In our case, we will use several statistical methods to build our model like kriging, multiple linear regression model or neural networks. Those which are chosen to build a model are called <em>learners</em> and will be compared.</p>
+<p>To measure performance of our predictions, we need to use a cross-validation resampling strategy. Several methods exist but we will use the Leave-One-Out cross-validation method. It consists to establish model based on every samples except one which will be the sample where the model is tested to compute the error and then doing it again as many times as the number of samples. The error measured for our models will be the Root Mean Squared Error (RMSE).</p>
+<p>Our spatialisation methodology is described in a scheme <a href="https://pokyah.github.io/agrometeor-methodo-spatial/assets/uml_images/spatialization-methodology.svg">here</a>.</p>
+</div>
+<div id="machine-learning-in-r" class="section level2">
+<h2>Machine learning in R</h2>
+<p>The major part of our work is done on RStudio. It is a very powerful open-source software for R. Moreover, a R package is available which provides the infrastructure to run machine learning. This package <a href="http://mlr-org.github.io/mlr/index.html">mlr</a> is very complete to build models, do predictions and evaluate performances.</p>
 </div>
 </div>
 </article>
     <footer class="post-footer">
       
       <div class="sharing">
-        <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fget_solar_irradiance_data%2f" title="Share on Facebook"></a>
-        <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Get%20solar%20irradiance%20data%20from%20Wallonia&amp;url=%2fpost%2fget_solar_irradiance_data%2f" title="Share on Twitter"></a>
-        <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Get%20solar%20irradiance%20data%20from%20Wallonia&amp;url=%2fpost%2fget_solar_irradiance_data%2f" title="Share on Google+"></a>
+        <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fintroduction_mlr%2f" title="Share on Facebook"></a>
+        <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Introduction%20to%20machine%20learning%20in%20R&amp;url=%2fpost%2fintroduction_mlr%2f" title="Share on Twitter"></a>
+        <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Introduction%20to%20machine%20learning%20in%20R&amp;url=%2fpost%2fintroduction_mlr%2f" title="Share on Google+"></a>
       </div>
     </footer>
   </section>

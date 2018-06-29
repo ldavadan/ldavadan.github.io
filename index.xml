@@ -6,10 +6,21 @@
     <description>Recent content on Personal website of Loïc Davadan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Introduction to machine learning in R</title>
+      <link>/post/introduction_mlr/</link>
+      <pubDate>Fri, 29 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/introduction_mlr/</guid>
+      <description>When I began my internship in the CRA-W, I had no idea of what machine learning was. Its weight in the AGROMET project required from me that I learn basis and some applications to apply it in R.
+That’s why, writing a brief introduction on machine learning and on its utilisation in R seems to be a good idea.
+What is machine learning ? Machine learning is a subset of deep learning or Artificial Intelligence that provides an ability to “learn” with data.</description>
+    </item>
     
     <item>
       <title>Get solar irradiance data from Wallonia</title>
@@ -18,7 +29,7 @@
       
       <guid>/post/get_solar_irradiance_data/</guid>
       <description>Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That’s why we need to access to these data and prepare them to be included in the models.
-Get data To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API. Then, a request can be done to load data that we want. These data are recently available on the API, from June 09th.</description>
+Get data To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API from EUMETSAT website. Data that we have are DSSF (Downward Surface Shortwave Flux) with a frequency of 1 day (MDSSF) or 30 minutes (DIDSSF) and measured in W/m².</description>
     </item>
     
     <item>
