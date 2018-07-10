@@ -53,7 +53,17 @@ Our spatialisation methodology is described in a scheme [here](https://pokyah.gi
 
 The major part of our work is done on RStudio. It is a very powerful open-source software for R. Moreover, a R package is available which provides the infrastructure to run machine learning. This package [mlr](http://mlr-org.github.io/mlr/index.html) is very complete to build models, do predictions and evaluate performances.
 
+### Application in R
 
+Our first tests are done on temperature prediction.
+
+First, I prepared data to be integer in mlr. For this purpose, I joined dynamic variables (temperature and solar irradiance) on a period called from API with static variables (elevation, slope, land cover...). Then, I have all explanatory variables I want to realize a fisrt prediction of temperature.
+
+`mlr` needs to define target, tasks, learners and resample. Once that is done, I could run a *benchmark* which measures errors of computation. The result of this benchmark can be analyzed in R getting performances of each learner and making predictions of our target (here, temperature).
+
+Duration of the benchmark depends on learners you choose and size of your data. After a quick investigation, with data from a period of 1 day, 1 week and 1 month, it seems that duration is linear. Then, I can predict that a benchmark of 5 years of data with Multiple Linear Regression and LOOCV resample will take just over 13 hours. But the best result will be obtained when we are able to compare several statistical methods to choose the best. Then, the duration will be longer even if some methods are faster than Multiple Linear Regression. Indeed, nearest neighbours method is very much faster than regression. However, the tests on 1 month of data show that nearest neighbours is worse than regression. Moreover, timetrain can be optimised according to tasks you have defined.
+
+In brief, processing a large amount of data needs time.
 
 
 

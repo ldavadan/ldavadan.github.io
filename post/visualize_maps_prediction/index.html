@@ -10,7 +10,7 @@
     
 
     
-    <title>Personal website</title>
+    <title>First tests in mlr</title>
 
     
     
@@ -20,14 +20,22 @@
 
   
   <meta name="author" content="Loïc Davadan" />
-  <meta name="description" content="Logbook for my intership" />
+  <meta name="description" content="I detailed before in this post why we use mlr in the context of the AGROMET project. Machine learning is very powerful to build models.
+I will present my methods and my results.
+Data preparation Reshaping data I have already explained it in my last post but this is an important part of the workflow.
+mlr package needs a data frame to work correctly. Then, we need to focus on its preparation." />
 
   
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@gohugoio" />
-  <meta name="twitter:title" content="Personal website" />
-  <meta name="twitter:description" content="Logbook for my intership" />
-  <meta name="twitter:image" content="/img/avatar.jpg" />
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="First tests in mlr" />
+    <meta name="twitter:description" content="I detailed before in this post why we use mlr in the context of the AGROMET project. Machine learning is very powerful to build models.
+I will present my methods and my results.
+Data preparation Reshaping data I have already explained it in my last post but this is an important part of the workflow.
+mlr package needs a data frame to work correctly. Then, we need to focus on its preparation." />
+    <meta name="twitter:image" content="/img/avatar.jpg" />
+  
 
 
 
@@ -35,8 +43,8 @@
 <meta name="generator" content="Hugo 0.33">
 
 
-<link rel="canonical" href="./">
-<link rel="alternative" href="./index.xml" title="Personal website of Loïc Davadan" type="application/atom+xml">
+<link rel="canonical" href="../../post/visualize_maps_prediction/">
+<link rel="alternative" href="../../index.xml" title="Personal website of Loïc Davadan" type="application/atom+xml">
 
 
 <meta name="renderer" content="webkit" />
@@ -50,9 +58,9 @@
 <meta name="msvalidate.01" content="" />
 
 
-<link rel="icon" href="./img/favicon.ico" />
+<link rel="icon" href="../../img/favicon.ico" />
 <meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" sizes="120x120" href="./img/avatar.jpg">
+<link rel="apple-touch-icon" sizes="120x120" href="../../img/avatar.jpg">
 
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
@@ -68,11 +76,11 @@
     
     
     
-      <li class="sidebar-item "><a class="sidebar-link" href="./post/">Posts</a></li>
+      <li class="sidebar-item "><a class="sidebar-link" href="../../post/">Posts</a></li>
     
-      <li class="sidebar-item "><a class="sidebar-link" href="./about/">About</a></li>
+      <li class="sidebar-item "><a class="sidebar-link" href="../../about/">About</a></li>
     
-      <li class="sidebar-item "><a class="sidebar-link" href="./tags/">Tags</a></li>
+      <li class="sidebar-item "><a class="sidebar-link" href="../../tags/">Tags</a></li>
     
   </ul>
 </amp-sidebar>
@@ -83,11 +91,11 @@
     width="128px"
     height="128px"
     class="logo"
-    src="./img/portrait.jpg"
+    src="../../img/portrait.jpg"
     sizes="(max-width: 800px) 36px, 128px">
   </amp-img>
   
-    <h1 class="title"><a href="./" title="Personal website of Loïc Davadan">Personal website of Loïc Davadan</a></h1>
+    <h2 class="title"><a href="../../" title="Personal website of Loïc Davadan">Personal website of Loïc Davadan</a></h2>
   
   <p class="subtitle">Personal website for my internship</p>
   <button class="menu-toggle" type="button" on="tap:sidebar.open">
@@ -101,11 +109,11 @@
       
       
       
-        <li class="menu-item "><a href="./post/">Posts</a></li>
+        <li class="menu-item "><a href="../../post/">Posts</a></li>
       
-        <li class="menu-item "><a href="./about/">About</a></li>
+        <li class="menu-item "><a href="../../about/">About</a></li>
       
-        <li class="menu-item "><a href="./tags/">Tags</a></li>
+        <li class="menu-item "><a href="../../tags/">Tags</a></li>
       
     </ul>
   </nav>
@@ -138,225 +146,51 @@
   
 
   <li class="social-item">
-    <a href="./index.xml" title="RSS"><span class="icon icon-rss"></span></a>
+    <a href="../../index.xml" title="RSS"><span class="icon icon-rss"></span></a>
   </li>
 </ul>
 
 </header>
 
-  <section class="main entry-list">
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">First tests in mlr</h1>
+      <p class="entry-meta"><span class="entry-time">Jul 10, 2018</span> 3 min read</p>
+    </header>
     
-    
-      
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/visualize_maps_prediction/" title="First tests in mlr" class="entry-link">First tests in mlr</a></h3>
-  </header>
 
-  <p class="entry-summary">I detailed before in this post why we use mlr in the context of the AGROMET project. Machine learning is very powerful to build models.
-I will present my methods and my results.
-Data preparation Reshaping data I have already explained it in my last post but this is an important part of the workflow.
-mlr package needs a data frame to work correctly. Then, we need to focus on its preparation.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jul 10, 2018</span> 3 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fvisualize_maps_prediction%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=First%20tests%20in%20mlr&amp;url=%2fpost%2fvisualize_maps_prediction%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=First%20tests%20in%20mlr&amp;url=%2fpost%2fvisualize_maps_prediction%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
+    <article class="post-content"><p>I detailed before in this <a href="https://ldavadan.github.io/post/introduction_mlr/">post</a> why we use <code>mlr</code> in the context of the AGROMET project. Machine learning is very powerful to build models.</p>
+<p>I will present my methods and my results.</p>
+<div id="data-preparation" class="section level1">
+<h1>Data preparation</h1>
+<div id="reshaping-data" class="section level2">
+<h2>Reshaping data</h2>
+<p>I have already explained it in my last post but this is an important part of the workflow.</p>
+<p><code>mlr</code> package needs a data frame to work correctly. Then, we need to focus on its preparation. As a reminder, we have static variables and dynamic variables available but they are generated independently. The first step is to group them. To do that, we need to make a join with both of them according their geometry, i.e. their coordinates. Then, we can group them by date and create a nested data frame, i.e. a data frame which stores individual tables within the cells of a larger table. That perserves relationships between observations and subsets of data and it is possible to manipulate many sub-tables at once with some functions. The library <code>purrr</code> is very complete for this. Once your data is nested for every hour.</p>
+</div>
+<div id="define-machine-learning-workflow" class="section level2">
+<h2>Define machine learning workflow</h2>
+<p>Once your data is prepared, you can prepare the mlr workflow.</p>
+<p>First, you will define the target, i.e. the parameter you want to predict. Then, you will create the task, i.e. the explanatory variables to use to build the model. Task will be created for each hour, this will be a new column with the same format than the data (sub-tables).</p>
+<p>Then, you have to define the learner, i.e. the statistical method to use. In my case, I will used only multiple linear regression. And defining the resampling method, leave-one-out cross-validation is the one I use.</p>
+<p>Well, we can run the benchmark now ! Performances and predictions can be extract from it.</p>
+<p>Beyond this, our objective is to spatialize these results. <code>mlr</code> is able to apply prediction on a spatial grid. This prediction is related to its related error and that is possible to be visualizedon a map.</p>
+<p>Some computations can be done to create a map. Below, there is a map displaying prediction without and one displaying the uncertainty of the prediction.</p>
+<p><img src="../../post/visualize_maps_prediction_files/figure-html/unnamed-chunk-1-1.png" width="672" /><img src="../../post/visualize_maps_prediction_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<p>Colors do not match because process has been different for the two maps but we can see that uncertainty make some blurred areas.</p>
+<p>For the first map (without error), I used <code>tmap</code> to create it. The legend was done from spectrum colors.</p>
+<p>In contrast, the map with uncertainty of prediction was more difficult because it needs to display prediction and uncertainty. My method was inspired by this <a href="http://spatial-analyst.net/wiki/index.php/Uncertainty_visualization#Visualization_of_uncertainty_using_whitening_in_R">article</a>. The principle was to normalize prediction and error and create a HSV code from these values. Then, the conversion to RGB code attributed a color to each 1 km² cell of the grid. This color takes into consideration prediction and error through color and cleanness of this color.</p>
+</div>
+</div>
 </article>
-
+    <footer class="post-footer">
       
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/introduction_mlr/" title="Introduction to machine learning in R" class="entry-link">Introduction to machine learning in R</a></h3>
-  </header>
-
-  <p class="entry-summary">When I began my internship in the CRA-W, I had no idea of what machine learning was. Its weight in the AGROMET project required from me that I learn basis and some applications to apply it in R.
-That’s why, writing a brief introduction on machine learning and on its utilisation in R seems to be a good idea.
-What is machine learning ? Machine learning is a subset of deep learning or Artificial Intelligence that provides an ability to “learn” with data.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 29, 2018</span> 5 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fintroduction_mlr%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Introduction%20to%20machine%20learning%20in%20R&amp;url=%2fpost%2fintroduction_mlr%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Introduction%20to%20machine%20learning%20in%20R&amp;url=%2fpost%2fintroduction_mlr%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/get_solar_irradiance_data/" title="Get solar irradiance data from Wallonia" class="entry-link">Get solar irradiance data from Wallonia</a></h3>
-  </header>
-
-  <p class="entry-summary">Solar irradiance is a parameter of interest for building models to predict weather parameters like temperature. That’s why we need to access to these data and prepare them to be included in the models.
-Get data To obtain solar irradiance data from Wallonia, those have been included in the AGROMET API from EUMETSAT website. Data that we have are DSSF (Downward Surface Shortwave Flux) with a frequency of 1 day (MDSSF) or 30 minutes (DIDSSF) and measured in W/m².</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 20, 2018</span> 3 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fget_solar_irradiance_data%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Get%20solar%20irradiance%20data%20from%20Wallonia&amp;url=%2fpost%2fget_solar_irradiance_data%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Get%20solar%20irradiance%20data%20from%20Wallonia&amp;url=%2fpost%2fget_solar_irradiance_data%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/methodology_clc_topo/" title="Methodology to prepare CLC and DMT data" class="entry-link">Methodology to prepare CLC and DMT data</a></h3>
-  </header>
-
-  <p class="entry-summary">In the context of the AGROMET project, we need CORINE land cover data and digital terrain model to improve models.
-I refer you to my other posts about CORINE land cover (CLC) :
- How to get CLC data from Wallonia
- Solve a problem in computing the area of each polygon inside a buffer
-  This post deals with the methodology which was applied to prepare data before using them in our models.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 18, 2018</span> 4 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fmethodology_clc_topo%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Methodology%20to%20prepare%20CLC%20and%20DMT%20data&amp;url=%2fpost%2fmethodology_clc_topo%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Methodology%20to%20prepare%20CLC%20and%20DMT%20data&amp;url=%2fpost%2fmethodology_clc_topo%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/solve_pb_clc/" title="Solve a problem in computing the area of each polygon inside a buffer" class="entry-link">Solve a problem in computing the area of each polygon inside a buffer</a></h3>
-  </header>
-
-  <p class="entry-summary">In the context of the AGROMET project, we searched to include data from CORINE land cover in our models. I refer you to my post How to get CORINE land cover data from Wallonia where I explained how we got data and how we reclass land covers in groups.
-During my work, I wanted to calculate the part of each land cover around every station and I am arrived at a problem.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 14, 2018</span> 5 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fsolve_pb_clc%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Solve%20a%20problem%20in%20computing%20the%20area%20of%20each%20polygon%20inside%20a%20buffer&amp;url=%2fpost%2fsolve_pb_clc%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Solve%20a%20problem%20in%20computing%20the%20area%20of%20each%20polygon%20inside%20a%20buffer&amp;url=%2fpost%2fsolve_pb_clc%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/get_corinelc_wallonia/" title="How to get CORINE land cover data from Wallonia" class="entry-link">How to get CORINE land cover data from Wallonia</a></h3>
-  </header>
-
-  <p class="entry-summary">The objective of the AGROMET project is to provide hourly 1km² gridded datasets of weather parameters with the best accuracy (i.e. spatialize hourly records from the stations on the whole area of Wallonia). Weather parameters will be predicted with explanatory variables. These explanatory variables are :
- Digital elevation model and its derivatives like aspect and slope
- Solar irradiance</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 8, 2018</span> 12 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fget_corinelc_wallonia%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=How%20to%20get%20CORINE%20land%20cover%20data%20from%20Wallonia&amp;url=%2fpost%2fget_corinelc_wallonia%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=How%20to%20get%20CORINE%20land%20cover%20data%20from%20Wallonia&amp;url=%2fpost%2fget_corinelc_wallonia%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/working_environment/" title="Working environment" class="entry-link">Working environment</a></h3>
-  </header>
-
-  <p class="entry-summary">In the context of my internship, my work mainly consists in development. However, working in development often imposes to be methodic.
-That’s why, when I have began my internship, I installed my working environment to be more productive.
-Installing Linux First, I have installed Ubuntu GNOME, a distribution of Linux on my laptop. Indeed, this OS is prefered by developers and open-source addicts thanks to the high contribution to improve distributions.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 7, 2018</span> 3 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fworking_environment%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Working%20environment&amp;url=%2fpost%2fworking_environment%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Working%20environment&amp;url=%2fpost%2fworking_environment%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/creating_map/" title="How to build a template map with data of AGROMET stations" class="entry-link">How to build a template map with data of AGROMET stations</a></h3>
-  </header>
-
-  <p class="entry-summary">One of the objectives of the AGROMET project is to make maps to view spatialized data. That’s why I tried to create a template map to view the different tests of spatialization.
-To do that, I used data from the AGROMET API using methods I have already detailed before.
-Get map of Wallonia Source : Raster data acquisition
-We need an outline map to limit the map to Wallonia. We can get the font of Wallonia with getData() function.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 7, 2018</span> 3 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fcreating_map%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=How%20to%20build%20a%20template%20map%20with%20data%20of%20AGROMET%20stations&amp;url=%2fpost%2fcreating_map%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=How%20to%20build%20a%20template%20map%20with%20data%20of%20AGROMET%20stations&amp;url=%2fpost%2fcreating_map%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/load_data_frasnes_hra/" title="First experience with the API" class="entry-link">First experience with the API</a></h3>
-  </header>
-
-  <p class="entry-summary">The API has 20 years of records of weather data. When you need some data, you have to use the API to load them.
-For my first exercise, I had to give an usable file with data about the relative humidity throughout the year near to Frasnes-lez-Anvaing.
-Find the nearest station Fisrt, I checked where was Frasnes-lez-Anvaing on the platform to find the nearest station.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">Jun 1, 2018</span> 13 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fload_data_frasnes_hra%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=First%20experience%20with%20the%20API&amp;url=%2fpost%2fload_data_frasnes_hra%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=First%20experience%20with%20the%20API&amp;url=%2fpost%2fload_data_frasnes_hra%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-        <article class="entry-single">
-  
-  <header class="entry-header">
-    <h3 class="entry-title"><a href="./post/internship_presentation/" title="Presentation of the internship" class="entry-link">Presentation of the internship</a></h3>
-  </header>
-
-  <p class="entry-summary">In the course of my studies in Bordeaux Sciences Agro, I realised a 3-month internship. This internship took place in the Walloon agricultural research centre (CRA-W)) from May 22nd to August 20th 2018. I made a contribution to the AGROMET project in Farming Systems, Territory and Information Technologies Unit. The aim of the Agromet project is to provide a near real-time hourly gridded datasets of weather parameters at the resolution of 1 km² for the whole region of Wallonia characterized by a quality indicator.</p>
-  <footer class="entry-footer">
-    <p class="entry-meta"><span class="entry-time">May 30, 2018</span> 3 min read</p>
-    <div class="sharing">
-      <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2finternship_presentation%2f" title="Share on Facebook"></a>
-      <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=Presentation%20of%20the%20internship&amp;url=%2fpost%2finternship_presentation%2f" title="Share on Twitter"></a>
-      <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=Presentation%20of%20the%20internship&amp;url=%2fpost%2finternship_presentation%2f" title="Share on Google+"></a>
-    </div>
-  </footer>
-</article>
-
-      
-    
-    
-      <nav class="pagination">
-        
-        
-          <a class="pagination-btn pagination-next" href="./page/2/">Older Posts →</a>
-        
-      </nav>
-    
+      <div class="sharing">
+        <a class="share share-facebook" target="_blank" href="https://facebook.com/sharer/sharer.php?u=%2fpost%2fvisualize_maps_prediction%2f" title="Share on Facebook"></a>
+        <a class="share share-twitter" target="_blank" href="https://twitter.com/intent/tweet/?text=First%20tests%20in%20mlr&amp;url=%2fpost%2fvisualize_maps_prediction%2f" title="Share on Twitter"></a>
+        <a class="share share-google" target="_blank" href="https://plus.google.com/share?url=First%20tests%20in%20mlr&amp;url=%2fpost%2fvisualize_maps_prediction%2f" title="Share on Google+"></a>
+      </div>
+    </footer>
   </section>
   <footer class="footer">
   <p>Copyright © 2018 Personal website of Loïc Davadan</p>

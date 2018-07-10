@@ -153,7 +153,7 @@ What is machine learning ? Machine learning is a subset of deep learning or Arti
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Introduction to machine learning in R</h1>
-      <p class="entry-meta"><span class="entry-time">Jun 29, 2018</span> 4 min read</p>
+      <p class="entry-meta"><span class="entry-time">Jun 29, 2018</span> 5 min read</p>
     </header>
     
 
@@ -191,6 +191,14 @@ What is machine learning ? Machine learning is a subset of deep learning or Arti
 <div id="machine-learning-in-r" class="section level2">
 <h2>Machine learning in R</h2>
 <p>The major part of our work is done on RStudio. It is a very powerful open-source software for R. Moreover, a R package is available which provides the infrastructure to run machine learning. This package <a href="http://mlr-org.github.io/mlr/index.html">mlr</a> is very complete to build models, do predictions and evaluate performances.</p>
+<div id="application-in-r" class="section level3">
+<h3>Application in R</h3>
+<p>Our first tests are done on temperature prediction.</p>
+<p>First, I prepared data to be integer in mlr. For this purpose, I joined dynamic variables (temperature and solar irradiance) on a period called from API with static variables (elevation, slope, land cover…). Then, I have all explanatory variables I want to realize a fisrt prediction of temperature.</p>
+<p><code>mlr</code> needs to define target, tasks, learners and resample. Once that is done, I could run a <em>benchmark</em> which measures errors of computation. The result of this benchmark can be analyzed in R getting performances of each learner and making predictions of our target (here, temperature).</p>
+<p>Duration of the benchmark depends on learners you choose and size of your data. After a quick investigation, with data from a period of 1 day, 1 week and 1 month, it seems that duration is linear. Then, I can predict that a benchmark of 5 years of data with Multiple Linear Regression and LOOCV resample will take just over 13 hours. But the best result will be obtained when we are able to compare several statistical methods to choose the best. Then, the duration will be longer even if some methods are faster than Multiple Linear Regression. Indeed, nearest neighbours method is very much faster than regression. However, the tests on 1 month of data show that nearest neighbours is worse than regression. Moreover, timetrain can be optimised according to tasks you have defined.</p>
+<p>In brief, processing a large amount of data needs time.</p>
+</div>
 </div>
 </div>
 </article>

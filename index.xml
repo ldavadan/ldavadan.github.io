@@ -6,10 +6,22 @@
     <description>Recent content on Personal website of Loïc Davadan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>First tests in mlr</title>
+      <link>/post/visualize_maps_prediction/</link>
+      <pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/visualize_maps_prediction/</guid>
+      <description>I detailed before in this post why we use mlr in the context of the AGROMET project. Machine learning is very powerful to build models.
+I will present my methods and my results.
+Data preparation Reshaping data I have already explained it in my last post but this is an important part of the workflow.
+mlr package needs a data frame to work correctly. Then, we need to focus on its preparation.</description>
+    </item>
     
     <item>
       <title>Introduction to machine learning in R</title>

@@ -1,0 +1,57 @@
+---
+title: "First tests in mlr"
+author: "Loïc Davadan"
+date: 2018-07-10
+output: html_document
+---
+
+I detailed before in this [post](https://ldavadan.github.io/post/introduction_mlr/) why we use `mlr` in the context of the AGROMET project. Machine learning is very powerful to build models.
+
+I will present my methods and my results.
+
+# Data preparation
+
+## Reshaping data
+
+I have already explained it in my last post but this is an important part of the workflow.
+
+`mlr` package needs a data frame to work correctly. Then, we need to focus on its preparation. As a reminder, we have static variables and dynamic variables available but they are generated independently. The first step is to group them. To do that, we need to make a join with both of them according their geometry, i.e. their coordinates. Then, we can group them by date and create a nested data frame, i.e. a data frame which stores individual tables within the cells of a larger table. That perserves relationships between observations and subsets of data and it is possible to manipulate many sub-tables at once with some functions. The library `purrr` is very complete for this. Once your data is nested for every hour.
+
+## Define machine learning workflow
+
+Once your data is prepared, you can prepare the mlr workflow.
+
+First, you will define the target, i.e. the parameter you want to predict. Then, you will create the task, i.e. the explanatory variables to use to build the model. Task will be created for each hour, this will be a new column with the same format than the data (sub-tables).
+
+Then, you have to define the learner, i.e. the statistical method to use. In my case, I will used only multiple linear regression. And defining the resampling method, leave-one-out cross-validation is the one I use.
+
+Well, we can run the benchmark now ! Performances and predictions can be extract from it.
+
+Beyond this, our objective is to spatialize these results. `mlr` is able to apply prediction on a spatial grid. This prediction is related to its related error and that is possible to be visualizedon a map.
+
+Some computations can be done to create a map. Below, there is a map displaying prediction without and one displaying the uncertainty of the prediction.
+
+```{r echo=FALSE}
+load("../../data/env_mlr_tests_post.RData")
+library(tmap)
+map_noerror
+map_error
+```
+
+Colors do not match because process has been different for the two maps but we can see that uncertainty make some blurred areas.
+
+For the first map (without error), I used `tmap` to create it. The legend was done from spectrum colors.
+
+In contrast, the map with uncertainty of prediction was more difficult because it needs to display prediction and uncertainty. My method was inspired by this [article](http://spatial-analyst.net/wiki/index.php/Uncertainty_visualization#Visualization_of_uncertainty_using_whitening_in_R). The principle was to normalize prediction and error and create a HSV code from these values. Then, the conversion to RGB code attributed a color to each 1 km² cell of the grid. This color takes into consideration prediction and error through color and cleanness of this color.
+
+
+
+
+
+
+
+
+
+
+
+
