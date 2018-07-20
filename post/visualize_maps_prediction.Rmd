@@ -27,6 +27,8 @@ Then, you have to define the learner, i.e. the statistical method to use. In my 
 
 Well, we can run the benchmark now ! Performances and predictions can be extract from it.
 
+# Spatialization and maps
+
 Beyond this, our objective is to spatialize these results. `mlr` is able to apply prediction on a spatial grid. This prediction is related to its related error and that is possible to be visualizedon a map.
 
 Some computations can be done to create a map. Below, there is a map displaying prediction without and one displaying the uncertainty of the prediction.
@@ -44,11 +46,17 @@ For the first map (without error), I used `tmap` to create it. The legend was do
 
 In contrast, the map with uncertainty of prediction was more difficult because it needs to display prediction and uncertainty. My method was inspired by this [article](http://spatial-analyst.net/wiki/index.php/Uncertainty_visualization#Visualization_of_uncertainty_using_whitening_in_R). The principle was to normalize prediction and error and create a HSV code from these values. Then, the conversion to RGB code attributed a color to each 1 km² cell of the grid. This color takes into consideration prediction and error through color and cleanness of this color.
 
+## New approach
 
+The maps I made use a spectral palette, which is not very adapted to the display of temperature. Moreover, it is not very clear to understand the map when error is shown.
 
+Another method we condider was to make two distinct layers : one for the predictions and one other for error. The error layer would be a white layer with different transparency levels where opacity would mean larger error. However, `tmap` can not handle this. That's why we decided to stop using it and restart the map building with `leaflet` for interactive maps and with `ggplot2` for static maps.
 
+In my case, I worked on static maps. `ggplot2` package has a different logic in its code, it was a new  way for me to create a map. Finally, the function was ready to build maps giving the coice to display error layer or not. Below a example of map I have produced.
 
-
+```{r echo=FALSE}
+map_gg
+```
 
 
 

@@ -174,12 +174,22 @@ mlr package needs a data frame to work correctly. Then, we need to focus on its 
 <p>First, you will define the target, i.e. the parameter you want to predict. Then, you will create the task, i.e. the explanatory variables to use to build the model. Task will be created for each hour, this will be a new column with the same format than the data (sub-tables).</p>
 <p>Then, you have to define the learner, i.e. the statistical method to use. In my case, I will used only multiple linear regression. And defining the resampling method, leave-one-out cross-validation is the one I use.</p>
 <p>Well, we can run the benchmark now ! Performances and predictions can be extract from it.</p>
+</div>
+</div>
+<div id="spatialization-and-maps" class="section level1">
+<h1>Spatialization and maps</h1>
 <p>Beyond this, our objective is to spatialize these results. <code>mlr</code> is able to apply prediction on a spatial grid. This prediction is related to its related error and that is possible to be visualizedon a map.</p>
 <p>Some computations can be done to create a map. Below, there is a map displaying prediction without and one displaying the uncertainty of the prediction.</p>
 <p><img src="../../post/visualize_maps_prediction_files/figure-html/unnamed-chunk-1-1.png" width="672" /><img src="../../post/visualize_maps_prediction_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
 <p>Colors do not match because process has been different for the two maps but we can see that uncertainty make some blurred areas.</p>
 <p>For the first map (without error), I used <code>tmap</code> to create it. The legend was done from spectrum colors.</p>
 <p>In contrast, the map with uncertainty of prediction was more difficult because it needs to display prediction and uncertainty. My method was inspired by this <a href="http://spatial-analyst.net/wiki/index.php/Uncertainty_visualization#Visualization_of_uncertainty_using_whitening_in_R">article</a>. The principle was to normalize prediction and error and create a HSV code from these values. Then, the conversion to RGB code attributed a color to each 1 km² cell of the grid. This color takes into consideration prediction and error through color and cleanness of this color.</p>
+<div id="new-approach" class="section level2">
+<h2>New approach</h2>
+<p>The maps I made use a spectral palette, which is not very adapted to the display of temperature. Moreover, it is not very clear to understand the map when error is shown.</p>
+<p>Another method we condider was to make two distinct layers : one for the predictions and one other for error. The error layer would be a white layer with different transparency levels where opacity would mean larger error. However, <code>tmap</code> can not handle this. That’s why we decided to stop using it and restart the map building with <code>leaflet</code> for interactive maps and with <code>ggplot2</code> for static maps.</p>
+<p>In my case, I worked on static maps. <code>ggplot2</code> package has a different logic in its code, it was a new way for me to create a map. Finally, the function was ready to build maps giving the coice to display error layer or not. Below a example of map I have produced.</p>
+<p><img src="../../post/visualize_maps_prediction_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 </div>
 </article>
